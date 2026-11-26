@@ -31,7 +31,7 @@
       {% endfor %}
     </div>
     {% if exclusive_count == 0 %}
-      <p class="ps-exclusive-empty">New exclusive designs are in development. Check back for future releases.</p>
+      {% render "presela-exclusive-previews" %}
     {% endif %}
   </section>
 {% endif %}

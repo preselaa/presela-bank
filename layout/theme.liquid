@@ -155,8 +155,7 @@
           {% render "presela-vip-product" %}
         {% elsif template.name == "collection" and collection.handle == "vip-collection" %}
           {% if customer and customer.tags contains "presela-vip-active" %}
-            <div class="ps-wrap ps-vip-member-banner"><strong>VIP Member Access · 50% off every merchandise product · Free shipping on every VIP order</strong><p>Your member discount is applied automatically at checkout.</p></div>
-            {{ ps_page_content }}
+            {% render 'presela-vip-dashboard' %}
           {% else %}
             {% render "presela-vip-gate" %}
           {% endif %}

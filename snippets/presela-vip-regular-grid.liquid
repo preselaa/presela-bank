@@ -1,0 +1,45 @@
+    <div class="ps-vip-section-head" id="ps-vip-shop"><h2>See what you save</h2><p>Shop regular products at your exclusive member rate.</p></div>
+    <div class="ps-vip-featured">
+      {% for item in collections.all.products limit: 50 %}
+        {% if item.tags contains 'presela-vip-only' or item.tags contains 'vip-only' %}{% continue %}{% endif %}
+        {% if item.available and item.featured_image and item.handle != "shipping-protection" and item.handle != "presela-vip-membership" %}
+          <article class="ps-vip-product">
+            {{ item.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: item.title }}
+            <div class="ps-vip-product-info"><h3>{{ item.title | escape }}</h3>{% render 'presela-vip-price', variant: item.selected_or_first_available_variant %}</div>
+            <product-form-component data-product-id="{{ item.id }}" data-quantity-default="1" class="ps-vip-form" on:submit="/handleSubmit">
+              {% form 'product', item %}
+                <input type="hidden" name="id" ref="variantId" value="{{ item.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                {% unless item.has_only_default_variant %}
+                  <label class="ps-vip-option-label" for="vip-option-{{ item.id }}">Choose option</label>
+                  <select id="vip-option-{{ item.id }}" class="ps-vip-option">
+                    {% for variant in item.variants %}
+                      {% assign saving = variant.price | times: 0.5 | round %}
+                      <option value="{{ variant.id }}" data-regular="{{ variant.price | money | escape }}" data-vip="{{ variant.price | minus: saving | money | escape }}" data-saving="{{ saving | money | escape }}" {% unless variant.available %}disabled{% endunless %} {% if variant.id == item.selected_or_first_available_variant.id %}selected{% endif %}>{{ variant.title | escape }}</option>
+                    {% endfor %}
+                  </select>
+                {% endunless %}
+                <button type="submit" class="ps-vip-add">Add to cart</button>
+                <span ref="liveRegion" class="visually-hidden" aria-live="polite"></span>
+                <span ref="addToCartTextError" class="hidden" role="alert"></span>
+              {% endform %}
+            </product-form-component>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+<script type="module" src="{{ 'product-form.js' | asset_url }}"></script>
+<script>
+  if (!window.preselaVipOptionsBound) {
+    window.preselaVipOptionsBound = true;
+    document.addEventListener('change', function(e) {
+      if (!e.target.matches('.ps-vip-option')) return;
+      const option = e.target.selectedOptions[0], card = e.target.closest('.ps-vip-product');
+      if (!option || !card) return;
+      card.querySelector('input[name="id"]').value = option.value;
+      card.querySelector('.ps-vip-price-main strong').textContent = option.dataset.vip;
+      card.querySelector('.ps-vip-price-compare > span:first-child').textContent = 'Regular ' + option.dataset.regular;
+      card.querySelector('.ps-vip-price-save').textContent = 'Save ' + option.dataset.saving;
+    });
+  }
+</script>

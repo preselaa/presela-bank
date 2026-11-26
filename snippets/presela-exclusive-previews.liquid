@@ -1,0 +1,15 @@
+{% assign preview_names = 'Northline Embroidered Hoodie|Contour Studio Crewneck|Blue Hour Graphic Tee|Crescent Arc Long Sleeve|Ridgeway Utility Vest|Harbor Knit Polo|Meridian Lounge Joggers|Solstice Canvas Tote|Fieldwork Embroidered Cap|Afterlight Studio Shorts' | split: '|' %}
+{% assign preview_files = 'presela-northline-hoodie-concept.png|presela-contour-crewneck-concept.png|presela-blue-hour-tee-concept.png|presela-crescent-long-sleeve-concept.png|presela-ridgeway-vest-concept.png|presela-harbor-polo-concept.png|presela-meridian-joggers-concept.png|presela-solstice-tote-concept.png|presela-fieldwork-cap-concept.png|presela-afterlight-shorts-concept.png' | split: '|' %}
+<p class="ps-exclusive-preview-note">A first look at our exclusive designs. These previews are not yet available to order.</p>
+<div class="ps-exclusive-grid">
+  {% for name in preview_names %}
+    {% assign filename = preview_files[forloop.index0] %}
+    <article class="ps-exclusive-card">
+      <div class="ps-exclusive-media">
+        <img src="{{ filename | file_url }}" alt="{{ name | escape }} design preview" width="720" height="720" loading="lazy">
+        <span class="ps-exclusive-badge"><span aria-hidden="true">✦</span> VIP ONLY</span>
+      </div>
+      <div class="ps-exclusive-info"><h3>{{ name | escape }}</h3><p class="ps-exclusive-status">Design preview</p></div>
+    </article>
+  {% endfor %}
+</div>
