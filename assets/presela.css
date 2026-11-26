@@ -319,3 +319,13 @@
 #cart-drawer .cart__checkout-button:disabled{background:#e3e9f2!important;color:#52647c!important;opacity:1!important;cursor:not-allowed}
 #cart-drawer .cart-totals__total{font-weight:750}
 #cart-drawer .cart-totals__tax-note{font-size:12px}
+
+/* Contact: message first, support details and links below */
+.psc .psc-grid{grid-template-columns:minmax(0,1fr);max-width:860px;margin-inline:auto}
+.psc .psc-form-card,.psc .psc-info{padding:clamp(20px,4vw,36px)}
+.psc .psc-info{background:#f4f8fd}
+.psc .psc-links.psc-info{margin:0}
+.psc .psc-links.psc-info a{padding:13px 0;border-bottom:1px solid #dbe5f2;text-decoration:none}
+.psc .psc-links.psc-info a:last-child{border-bottom:0;padding-bottom:0}
+.psc .psc-form input::placeholder,.psc .psc-form textarea::placeholder{color:#718096;opacity:1}
+.psc .psc-hero{max-width:860px;margin-inline:auto}

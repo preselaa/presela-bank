@@ -5,14 +5,6 @@
     <div>{{ section.settings.intro }}</div>
   </div>
   <div class="psc-grid">
-    <aside class="psc-info" aria-label="Customer support information">
-      <h2>Get in touch</h2>
-      <div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><div><h3>Email us</h3><a href="mailto:{{ shop.email | escape }}">{{ shop.email | escape }}</a></div></div>
-      <div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><h3>Support hours</h3>{{ section.settings.hours }}</div></div>
-      {% if section.settings.phone != blank %}<div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 3h4l2 5-3 2a14 14 0 0 0 6 6l2-3 5 2v4c0 2-2 2-4 1C9 18 6 14 4 7 3 5 3 3 5 3Z"/></svg><div><h3>Call us</h3><a href="tel:{{ section.settings.phone | escape }}">{{ section.settings.phone | escape }}</a></div></div>{% endif %}
-      {% if section.settings.address != blank %}<div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><div><h3>Registered business address</h3>{{ section.settings.address }}</div></div>{% endif %}
-      <div class="psc-links"><h3>Helpful links</h3><a href="{{ routes.account_url }}">View your orders <span aria-hidden="true">→</span></a><a href="/collections/vip-collection">VIP Collection <span aria-hidden="true">→</span></a><a href="/pages/cancel-membership">Cancel membership <span aria-hidden="true">→</span></a><a href="/pages/subscription-policy">Subscription policy <span aria-hidden="true">→</span></a><a href="/pages/shipping-policy">Shipping policy <span aria-hidden="true">→</span></a>{% if shop.refund_policy.body != blank %}<a href="{{ shop.refund_policy.url }}">Refund policy <span aria-hidden="true">→</span></a>{% endif %}</div>
-    </aside>
     <div class="psc-form-card">
       <h2>{{ section.settings.form_heading | escape }}</h2>
       <p>{{ section.settings.form_intro | escape }}</p>
@@ -21,8 +13,8 @@
         {% if form.posted_successfully? %}<p class="psc-success" role="status">Thank you. Your message has been submitted.</p>{% endif %}
         {% if form.errors %}<div class="psc-error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
         <div class="psc-row">
-          <div><label for="{{ contact_id }}-name">Full name</label><input id="{{ contact_id }}-name" name="contact[name]" autocomplete="name" value="{{ form.name | default: customer.name | escape }}" required></div>
-          <div><label for="{{ contact_id }}-email">Email address</label><input id="{{ contact_id }}-email" type="email" name="contact[email]" autocomplete="email" value="{{ form.email | default: customer.email | escape }}" required></div>
+          <div><label for="{{ contact_id }}-name">Full name</label><input id="{{ contact_id }}-name" name="contact[name]" autocomplete="name" value="{{ form.name | escape }}" placeholder="Your name" required></div>
+          <div><label for="{{ contact_id }}-email">Email address</label><input id="{{ contact_id }}-email" type="email" name="contact[email]" autocomplete="email" value="{{ form.email | escape }}" placeholder="name@example.com" required></div>
         </div>
         <div class="psc-row">
           <div><label for="{{ contact_id }}-topic">How can we help?</label><select id="{{ contact_id }}-topic" name="contact[Topic]" required><option value="">Choose a topic</option><option>Order or delivery</option><option>Returns or refunds</option><option>VIP membership or billing</option><option>Cancel membership</option><option>Product question</option><option>Other</option></select></div>
@@ -33,6 +25,14 @@
         <button type="submit">{{ section.settings.button_text | escape }} <span aria-hidden="true">→</span></button>
       {% endform %}
     </div>
+    <aside class="psc-info" aria-label="Customer support information">
+      <h2>Get in touch</h2>
+      <div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><div><h3>Email us</h3><a href="mailto:{{ shop.email | escape }}">{{ shop.email | escape }}</a></div></div>
+      <div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><h3>Support hours</h3>{{ section.settings.hours }}</div></div>
+      {% if section.settings.phone != blank %}<div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 3h4l2 5-3 2a14 14 0 0 0 6 6l2-3 5 2v4c0 2-2 2-4 1C9 18 6 14 4 7 3 5 3 3 5 3Z"/></svg><div><h3>Call us</h3><a href="tel:{{ section.settings.phone | escape }}">{{ section.settings.phone | escape }}</a></div></div>{% endif %}
+      {% if section.settings.address != blank %}<div class="psc-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><div><h3>Registered business address</h3>{{ section.settings.address }}</div></div>{% endif %}
+    </aside>
+      <nav class="psc-links psc-info" aria-label="Helpful links"><h2>Helpful links</h2><a href="{{ routes.account_url }}">View your orders <span aria-hidden="true">→</span></a><a href="/collections/vip-collection">VIP Collection <span aria-hidden="true">→</span></a><a href="/pages/cancel-membership">Cancel membership <span aria-hidden="true">→</span></a><a href="/pages/subscription-policy">Subscription policy <span aria-hidden="true">→</span></a><a href="/pages/shipping-policy">Shipping policy <span aria-hidden="true">→</span></a>{% if shop.refund_policy.body != blank %}<a href="{{ shop.refund_policy.url }}">Refund policy <span aria-hidden="true">→</span></a>{% endif %}</nav>
   </div>
 </section>
 <style>

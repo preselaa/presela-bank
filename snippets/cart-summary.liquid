@@ -254,25 +254,35 @@
 
 {% liquid
   assign ps_membership_checkout_pending = false
+  assign ps_checkout_test_allowed = false
+  if customer and customer.tags contains 'presela-vip-demo'
+    assign ps_checkout_test_allowed = true
+  endif
   for ps_line in cart.items
     if ps_line.product.handle == 'presela-vip-membership' and ps_line.selling_plan_allocation == blank
       assign ps_membership_checkout_pending = true
     endif
   endfor
 %}
+{% assign ps_checkout_blocked = false %}
+{% if cart == empty %}
+  {% assign ps_checkout_blocked = true %}
+{% elsif ps_membership_checkout_pending and ps_checkout_test_allowed == false %}
+  {% assign ps_checkout_blocked = true %}
+{% endif %}
 <div class="cart__ctas">
   <button
     type="submit"
     id="checkout"
     class="cart__checkout-button button"
     name="checkout"
-    {% if cart == empty or ps_membership_checkout_pending %}
+    {% if ps_checkout_blocked %}
       disabled
     {% endif %}
     form="cart-form"
   >
     <span class="button-text">
-      {% if ps_membership_checkout_pending %}Checkout unavailable{% else %}{{ 'content.checkout' | t }}{% endif %}
+      {{ 'content.checkout' | t }}
     </span>
   </button>
 
