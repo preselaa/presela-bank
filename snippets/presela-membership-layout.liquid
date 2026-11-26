@@ -1,15 +1,35 @@
 {% assign membership_email = 'presela@atomicmail.io' %}
 <section class="ps-member-shell">
   {% if page.handle == 'vip-club' %}
-    <div class="ps-member-hero">
+    {% assign membership_product = all_products['presela-vip-membership'] %}
+    {% assign membership_variant = membership_product.selected_or_first_available_variant %}
+    {% assign membership_plan = membership_variant.selling_plan_allocations.first %}
+    <div class="ps-member-hero ps-member-hero--join">
       <span class="ps-member-symbol" aria-hidden="true">✦</span>
       <p class="ps-member-kicker">THE PRESELA VIP CLUB</p>
-      <h1>More savings.<br>More possibilities.</h1>
-      <p>Get 50% off eligible VIP Collection products, access exclusive deals, and enjoy member-only shopping.</p>
+      <h1>Why become a member?</h1>
+      <p>Discover exclusive member savings, special offers and a better way to shop Presela.</p>
       <div class="ps-member-price"><strong>$29.99</strong><span>every 28 days</span></div>
       <p class="ps-member-renewal">Optional membership. Automatically renews every 28 days until canceled.</p>
-      <a class="ps-member-primary" href="/collections/vip-collection">Shop the VIP Collection <span aria-hidden="true">→</span></a>
-      <p class="ps-member-renewal">Active members must verify their email for access.</p>
+      <div class="ps-member-ctas">
+        {% if membership_variant.available and membership_plan != blank %}
+          <script type="module" src="{{ 'product-form.js' | asset_url }}"></script>
+          <product-form-component data-product-id="{{ membership_product.id }}" data-quantity-default="1" on:submit="/handleSubmit">
+            {% form 'product', membership_product %}
+              <input type="hidden" name="id" ref="variantId" value="{{ membership_variant.id }}">
+              <input type="hidden" name="selling_plan" value="{{ membership_plan.selling_plan.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="ps-member-primary ps-member-join">Join &amp; Save <span aria-hidden="true">→</span></button>
+              <span ref="liveRegion" class="visually-hidden" aria-live="polite"></span>
+              <span ref="addToCartTextError" class="hidden ps-member-form-error" role="alert"></span>
+            {% endform %}
+          </product-form-component>
+        {% else %}
+          <button type="button" class="ps-member-primary ps-member-join" disabled>Join &amp; Save <span aria-hidden="true">→</span></button>
+        {% endif %}
+        <a class="ps-member-primary ps-member-existing" href="/collections/vip-collection">Existing Member? Click Here <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="ps-member-renewal ps-member-signin-note">Already a member? Verify your email to access your benefits.</p>
     </div>
     <div class="ps-member-body">
       <h2>Membership benefits</h2>
@@ -19,6 +39,34 @@
         <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/></svg></span><div><h3>Member-only access</h3><p>Sign in securely with your membership email.</p></div></div>
       </div>
       <nav class="ps-member-links" aria-label="Membership resources"><a href="/collections/vip-collection">VIP Collection</a><a href="/pages/cancel-membership">Cancel membership</a><a href="/pages/subscription-policy">Subscription policy</a></nav>
+      <section class="ps-member-faq" aria-labelledby="ps-vip-faq-title">
+        <p class="ps-member-section-kicker">MEMBERSHIP HELP</p>
+        <h2 id="ps-vip-faq-title">Frequently asked questions</h2>
+        <details><summary>How do I join?</summary><p>Choose Join &amp; Save, review the membership terms and complete checkout when enrollment is open. Use the email associated with your membership to sign in and access your VIP benefits.</p></details>
+        <details><summary>Is the membership fee a recurring charge?</summary><p>Yes. Presela VIP costs $29.99 USD every 28 days and automatically renews until canceled. Membership is optional.</p></details>
+        <details><summary>How do I access my VIP benefits?</summary><p>Select Existing Member? Click Here and verify your membership email. Active members can access the <a href="/collections/vip-collection">VIP Collection</a>.</p></details>
+        <details><summary>How do I cancel my membership?</summary><p>You can cancel at any time before your next renewal. Use the <a href="/pages/cancel-membership">cancellation page</a>, submit the form below or email <a href="mailto:{{ membership_email }}">{{ membership_email }}</a>. No survey or additional purchase is required. We will confirm cancellation.</p></details>
+      </section>
+      <section class="ps-member-cancel" id="vip-cancel" aria-labelledby="ps-vip-cancel-title">
+        <p class="ps-member-section-kicker">MEMBERSHIP SUPPORT</p>
+        <h2 id="ps-vip-cancel-title">Want to cancel your membership?</h2>
+        <p>Send us your request using your membership email. Our support team will confirm your cancellation.</p>
+        {% form 'contact', id: 'PreselaVipCancellation', class: 'ps-member-cancel-form' %}
+          {% if form.posted_successfully? %}<p class="ps-member-status" role="status">Your cancellation request has been submitted. We will send confirmation by email.</p>{% endif %}
+          {% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+          <input type="hidden" name="contact[Request type]" value="VIP membership cancellation">
+          <label for="VipCancelName">Name</label>
+          <input id="VipCancelName" name="contact[name]" autocomplete="name" value="{{ customer.name | escape }}">
+          <label for="VipCancelEmail">Membership email <span aria-hidden="true">*</span></label>
+          <input id="VipCancelEmail" type="email" name="contact[email]" autocomplete="email" value="{{ customer.email | escape }}" required>
+          <label for="VipCancelOrder">Order number (optional)</label>
+          <input id="VipCancelOrder" name="contact[Order number]">
+          <label for="VipCancelMessage">Message (optional)</label>
+          <textarea id="VipCancelMessage" name="contact[body]" rows="4">Please cancel my Presela VIP membership.</textarea>
+          <button type="submit" class="ps-member-cancel-submit">Send cancellation request <span aria-hidden="true">→</span></button>
+        {% endform %}
+        <p class="ps-member-cancel-alt">You can also email <a href="mailto:{{ membership_email }}?subject=Cancel%20my%20VIP%20membership">{{ membership_email }}</a>. Please do not include card details.</p>
+      </section>
     </div>
   {% elsif page.handle == 'vip-collection' %}
     <div class="ps-member-hero ps-member-compact">
