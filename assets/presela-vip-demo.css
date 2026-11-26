@@ -109,3 +109,24 @@
   .ps-reviewer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ps-reviewer-header .ps-reviewer-primary { width: 100%; }
 }
+
+.ps-vip-shop { width: min(calc(100% - 32px), 1120px); }
+.ps-vip-shop .ps-reviewer-header {
+  background: linear-gradient(125deg, #111e38, #163967);
+}
+
+.ps-vip-shop .ps-reviewer-body {
+  background: #f7fafd;
+  scroll-margin-top: 78px;
+}
+
+.ps-vip-shop .ps-reviewer-grid { gap: clamp(10px, 2vw, 20px); }
+.ps-vip-shop .ps-reviewer-grid li { background: #fff; }
+.ps-vip-shop-card { display: block; height: 100%; color: #102c69; text-decoration: none; }
+.ps-vip-shop-card:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
+.ps-vip-shop-card:focus-visible { outline: 2px solid #235896; outline-offset: -4px; }
+.ps-vip-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 8px; }
+.ps-vip-price strong { font-size: 14px; }
+.ps-vip-price s { color: #465e7b; }
+.ps-reviewer-product .ps-vip-choice { margin-top: 5px; color: #102c69; font-weight: 600; }
+.ps-vip-pagination { display: flex; justify-content: center; gap: 12px; }

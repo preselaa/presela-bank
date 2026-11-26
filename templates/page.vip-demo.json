@@ -11,16 +11,8 @@
   "sections": {
     "main": {
       "type": "presela-vip-demo",
-      "settings": {
-        "products": [
-          "alpine-quarter-zip",
-          "cloudfit-oversized-hoodie",
-          "coastal-linen-shorts"
-        ]
-      }
+      "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
