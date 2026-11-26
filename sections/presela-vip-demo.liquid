@@ -1,0 +1,73 @@
+{{ 'presela-vip-demo.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign reviewer = false
+  if customer and customer.tags contains 'presela-vip-demo'
+    assign reviewer = true
+  endif
+%}
+
+<section class="ps-reviewer" aria-labelledby="ps-reviewer-title-{{ section.id }}">
+  <header class="ps-reviewer-header">
+    <p class="ps-reviewer-label">{{ section.settings.label | escape }}</p>
+    <h1 id="ps-reviewer-title-{{ section.id }}">{{ page.title | escape }}</h1>
+    {{ section.settings.intro }}
+    {% unless customer %}
+      <a class="button ps-reviewer-primary" href="{{ routes.storefront_login_url }}">{{ section.settings.sign_in | escape }}</a>
+    {% endunless %}
+  </header>
+
+  {% if reviewer %}
+    <div class="ps-reviewer-body">
+      <h2>{{ section.settings.catalog_title | escape }}</h2>
+      {{ section.settings.catalog_copy }}
+      {% if section.settings.products != blank %}
+        <ul class="ps-reviewer-grid" role="list">
+          {% for item in section.settings.products %}
+            {% assign example_price = item.price | times: 0.5 | round %}
+            <li>
+              {% if item.featured_image %}
+                {{ item.featured_image | image_url: width: 560 | image_tag: widths: '240,360,560', sizes: '(min-width: 700px) 28vw, 45vw', loading: 'lazy' }}
+              {% endif %}
+              <div class="ps-reviewer-product">
+                <h3>{{ item.title | escape }}</h3>
+                <span>{{ section.settings.regular_price_label | escape }} {{ item.price | money }}</span>
+                <strong>{{ section.settings.example_price_label | escape }} {{ example_price | money }}</strong>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <nav class="ps-reviewer-links" aria-label="Membership resources">
+        <a href="{{ pages['vip-club'].url }}">VIP Club</a>
+        <a href="{{ pages['subscription-policy'].url }}">Subscription policy</a>
+        <a href="{{ pages['cancel-membership'].url }}">Cancel membership</a>
+        <a href="{{ routes.account_logout_url }}">Sign out</a>
+      </nav>
+    </div>
+  {% elsif customer %}
+    <div class="ps-reviewer-body">
+      <h2>{{ section.settings.no_access_title | escape }}</h2>
+      {{ section.settings.no_access_copy }}
+      <a class="button" href="{{ routes.account_logout_url }}">Sign out</a>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "VIP reviewer demo",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Status label", "default": "REVIEWER DEMO" },
+    { "type": "richtext", "id": "intro", "label": "Introduction", "default": "<p>Sign in with the email approved for this demo. Shopify sends a one-time code to that inbox. This demo does not enroll or charge you.</p>" },
+    { "type": "text", "id": "sign_in", "label": "Sign-in button", "default": "Sign in to the demo" },
+    { "type": "text", "id": "catalog_title", "label": "Catalog heading", "default": "Sample VIP Collection" },
+    { "type": "richtext", "id": "catalog_copy", "label": "Catalog introduction", "default": "<p>These examples show how member pricing could be presented. The prices are for demonstration only.</p>" },
+    { "type": "product_list", "id": "products", "label": "Example products", "limit": 6 },
+    { "type": "text", "id": "regular_price_label", "label": "Regular price label", "default": "Regular price" },
+    { "type": "text", "id": "example_price_label", "label": "Example price label", "default": "Example VIP price" },
+    { "type": "text", "id": "no_access_title", "label": "Access message heading", "default": "Demo access required" },
+    { "type": "richtext", "id": "no_access_copy", "label": "Access message", "default": "<p>This account is not approved for the reviewer demo. Sign out and use the email approved for this demo.</p>" }
+  ]
+}
+{% endschema %}

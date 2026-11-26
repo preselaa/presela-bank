@@ -18,6 +18,9 @@
     {%- render 'view-transition-opt-in' -%}
 
     {%- render 'meta-tags' -%}
+    {% if request.page_type == 'page' and template.suffix == 'vip-demo' %}
+      <meta name="robots" content="noindex, nofollow">
+    {% endif %}
     {%- render 'stylesheets' -%}
     {{ 'presela.css' | asset_url | stylesheet_tag }}
     {{ 'presela-editorial.css' | asset_url | stylesheet_tag }}

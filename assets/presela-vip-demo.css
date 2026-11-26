@@ -1,0 +1,111 @@
+.ps-reviewer {
+  width: min(calc(100% - 32px), 940px);
+  margin: clamp(28px, 6vw, 72px) auto;
+  overflow: hidden;
+  border: 1px solid #dce5ef;
+  border-radius: 18px;
+  background: #fff;
+  color: #102c69;
+}
+
+.ps-reviewer-header {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding: clamp(26px, 6vw, 58px);
+  background: #12264b;
+  color: #fff;
+}
+
+.ps-reviewer-header p,
+.ps-reviewer-header h1,
+.ps-reviewer-body h2 { margin: 0; }
+
+.ps-reviewer-label {
+  color: #c3dcf6;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+
+.ps-reviewer-header h1 {
+  color: inherit;
+  font-size: clamp(32px, 6vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+
+.ps-reviewer-header p:not(.ps-reviewer-label) {
+  max-width: 54ch;
+  color: #e6effa;
+}
+
+.ps-reviewer-header .ps-reviewer-primary {
+  min-height: 48px;
+  margin-block-start: 4px;
+  background: #edf5ff;
+  color: #12264b;
+  border-color: #edf5ff;
+}
+
+.ps-reviewer-header .ps-reviewer-primary:hover { background: #dcecff; }
+.ps-reviewer-body { padding: clamp(24px, 5vw, 46px); }
+
+.ps-reviewer-body p {
+  max-width: 62ch;
+  color: #465e7b;
+}
+
+.ps-reviewer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-reviewer-grid li {
+  overflow: hidden;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  background: #f7fafd;
+}
+
+.ps-reviewer-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.ps-reviewer-product {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  font-size: 13px;
+}
+
+.ps-reviewer-product h3 {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.ps-reviewer-product span { color: #465e7b; }
+
+.ps-reviewer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  padding-top: 14px;
+  border-top: 1px solid #dce5ef;
+}
+
+.ps-reviewer-links a { text-underline-offset: 3px; }
+
+@media (max-width: 620px) {
+  .ps-reviewer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ps-reviewer-header .ps-reviewer-primary { width: 100%; }
+}
