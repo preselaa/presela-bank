@@ -9,6 +9,9 @@
     <div class="ps-footer-bottom">
       <span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}. All rights reserved.</span>
       <nav aria-label="Store policies">
+        {% if pages['track-order'].url != blank %}
+          <a href="{{ pages['track-order'].url }}">Track Order</a>
+        {% endif %}
         <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>
         <a href="{{ shop.terms_of_service.url | default: section.settings.terms_link | default: '/pages/terms-of-service' }}">Terms of service</a>
         <a href="{{ shop.refund_policy.url | default: section.settings.refund_link | default: '/pages/refund-policy' }}">Refund policy</a>

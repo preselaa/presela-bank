@@ -90,7 +90,8 @@
     "favicon": "shopify://shop_images/ChatGPT_Image_Nov_26_2026_03_17_29_AM.png",
     "presela_protection_product": "shipping-protection",
     "presela_protection_icon": "shopify://shop_images/ChatGPTImageNov26_2026_07_20_16AM.png",
-    "presela_protection_description": "Optional protection for loss, damage or theft in transit."
+    "presela_protection_description": "Optional protection for loss, damage or theft in transit.",
+    "auto_open_cart_drawer": true
   },
   "presets": {
     "Default": {

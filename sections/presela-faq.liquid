@@ -1,4 +1,22 @@
-<section class="ps-wrap ps-faq"><div class="ps-intro"><h2>{{ section.settings.heading | escape }}</h2>{{ section.settings.intro }}</div><div class="ps-questions">{% for block in section.blocks %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.question | escape }}<span aria-hidden="true">+</span></summary><div class="ps-answer">{{ block.settings.answer }}</div></details>{% endfor %}</div><div class="ps-faq-cta"><a class="button" href="{{ section.settings.link | default: '/pages/contact' }}">{{ section.settings.button | escape }}</a></div></section>
+{{ 'presela-support.css' | asset_url | stylesheet_tag }}
+
+<section class="ps-wrap ps-faq ps-faq--support">
+  <div class="ps-intro">
+    <h2>{{ section.settings.heading | escape }}</h2>
+    {{ section.settings.intro }}
+  </div>
+  <div class="ps-questions">
+    {% for block in section.blocks %}
+      <details {{ block.shopify_attributes }}>
+        <summary>{{ block.settings.question | escape }}<span aria-hidden="true">+</span></summary>
+        <div class="ps-answer rte">{{ block.settings.answer }}</div>
+      </details>
+    {% endfor %}
+  </div>
+  <div class="ps-faq-cta">
+    <a class="button" href="{{ section.settings.link | default: pages['contact'].url }}">{{ section.settings.button | escape }}</a>
+  </div>
+</section>
 {% schema %}
 {
   "name": "Presela FAQ",

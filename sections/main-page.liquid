@@ -4,13 +4,20 @@
   endif
 %}
 
+{% liquid
+  assign support_policy_handles = 'refund-policy,shipping-policy,subscription-policy,terms-of-service,business-contact-information' | split: ','
+%}
+{% if support_policy_handles contains page.handle %}
+  {{ 'presela-support.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
 {% if page.handle == 'vip-club' or page.handle == 'vip-collection' or page.handle == 'cancel-membership' %}
   {% render 'presela-membership-layout' %}
 {% else %}
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
 ></div>
-<div class="section page-width-content{% if page.handle == 'vip-club' or page.handle == 'vip-collection' or page.handle == 'cancel-membership' %} ps-membership ps-{{ page.handle }}{% endif %}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}">
+<div class="section page-width-content{% if support_policy_handles contains page.handle %} ps-policy-page{% endif %}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}">
   <div
     class="
       spacing-style

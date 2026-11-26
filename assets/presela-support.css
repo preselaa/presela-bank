@@ -1,0 +1,178 @@
+.ps-support-shell {
+  width: min(calc(100% - 32px), 820px);
+  margin: clamp(32px, 6vw, 72px) auto;
+  color: #102c69;
+}
+
+.ps-track-header {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding: clamp(24px, 6vw, 58px);
+  border: 1px solid #d9e5f3;
+  border-radius: 20px;
+  background: #f0f6ff;
+}
+
+.ps-track-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 12px;
+  background: #dcecff;
+}
+
+.ps-track-header h1 {
+  margin: 0;
+  color: #102c69;
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+
+.ps-track-copy {
+  max-width: 56ch;
+  color: #465e7b;
+  line-height: 1.65;
+}
+
+.ps-track-copy p,
+.ps-track-help p {
+  margin: 0;
+}
+
+.ps-track-header .ps-track-button {
+  min-height: 48px;
+  margin-block-start: 4px;
+}
+
+.ps-track-help {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-block-start: 14px;
+}
+
+.ps-track-help > div {
+  padding: clamp(18px, 4vw, 28px);
+  border: 1px solid #d9e5f3;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.ps-track-help h2 {
+  margin: 0 0 8px;
+  color: #102c69;
+  font-size: 18px;
+}
+
+.ps-track-help p {
+  color: #465e7b;
+  line-height: 1.55;
+}
+
+.ps-track-help a,
+.ps-faq--support .ps-answer a {
+  color: #102c69;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ps-track-help a {
+  display: inline-block;
+  margin-block-start: 12px;
+}
+
+.ps-faq--support .ps-questions {
+  overflow: hidden;
+  border: 1px solid #d9e5f3;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.ps-faq--support .ps-questions details:last-child {
+  border-bottom: 0;
+}
+
+.ps-faq--support .ps-questions summary {
+  min-height: 56px;
+  padding: 14px 18px;
+  color: #102c69;
+}
+
+.ps-faq--support .ps-questions details[open] {
+  background: #f0f6ff;
+}
+
+.ps-faq--support .ps-questions summary:focus-visible {
+  outline-offset: -4px;
+}
+
+.ps-faq--support .ps-answer {
+  padding: 0 18px 18px;
+}
+
+.ps-faq--support .ps-answer p {
+  max-width: 68ch;
+  margin: 0;
+}
+
+.ps-policy-page .section-content-wrapper {
+  max-width: 820px;
+  margin-inline: auto;
+  gap: 22px;
+}
+
+.ps-policy-page .section-content-wrapper h1 {
+  margin: 0;
+  color: #102c69;
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -.035em;
+}
+
+.ps-policy-page .page-content {
+  width: 100%;
+  padding: clamp(20px, 5vw, 44px);
+  border: 1px solid #d9e5f3;
+  border-radius: 16px;
+  background: #f8fbff;
+  color: #263c55;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.ps-policy-page .section-content-wrapper :is(h2, h3) {
+  color: #102c69;
+  font-size: 20px;
+}
+
+.ps-policy-page .page-content rte-formatter > :first-child {
+  margin-top: 0;
+}
+
+.ps-policy-page .page-content rte-formatter > :last-child {
+  margin-bottom: 0;
+}
+
+.ps-policy-page .section-content-wrapper a {
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  .ps-track-help {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-track-header .ps-track-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ps-faq--support .ps-questions summary,
+  .ps-faq--support .ps-answer {
+    padding-inline: 14px;
+  }
+}

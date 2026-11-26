@@ -1,0 +1,39 @@
+{{ 'presela-support.css' | asset_url | stylesheet_tag }}
+
+<section class="ps-support-shell ps-track-page" aria-labelledby="track-heading">
+  <header class="ps-track-header">
+    <span class="ps-track-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m3 7 9 5 9-5m-9 5v10m-4.5-17.5 9 5v5"/></svg>
+    </span>
+    <h1 id="track-heading">{{ page.title | escape }}</h1>
+    <div class="ps-track-copy rte">{{ page.content }}</div>
+    <a class="button ps-track-button" href="{{ routes.account_url }}">{{ section.settings.button_label | escape }}</a>
+  </header>
+  <div class="ps-track-help">
+    <div>
+      <h2>{{ section.settings.email_heading | escape }}</h2>
+      {{ section.settings.email_help }}
+    </div>
+    <div>
+      <h2>{{ section.settings.support_heading | escape }}</h2>
+      {{ section.settings.support_help }}
+      {% if pages['contact'].url != blank %}
+        <a href="{{ pages['contact'].url }}">{{ section.settings.support_label | escape }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Track order",
+  "settings": [
+    { "type": "text", "id": "button_label", "label": "Order button", "default": "View my orders" },
+    { "type": "text", "id": "email_heading", "label": "Email help heading", "default": "Track from your email" },
+    { "type": "richtext", "id": "email_help", "label": "Email help", "default": "<p>Open your shipping confirmation and follow the tracking link when it’s available.</p>" },
+    { "type": "text", "id": "support_heading", "label": "Support heading", "default": "Need help with an order?" },
+    { "type": "richtext", "id": "support_help", "label": "Support text", "default": "<p>Send us your order number and the email you used at checkout.</p>" },
+    { "type": "text", "id": "support_label", "label": "Support link", "default": "Contact support" }
+  ]
+}
+{% endschema %}

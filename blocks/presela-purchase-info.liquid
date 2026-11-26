@@ -23,10 +23,6 @@
       {% assign in_stock = true %}
     {% endif %}
   {% endif %}
-  {% assign show_fast_dispatch = block.settings.show_dispatch %}
-  {% if product.tags contains 'ships-in-1-business-day' %}
-    {% assign show_fast_dispatch = true %}
-  {% endif %}
   {% unless stock_unverified %}
     <div class="ps-purchase-status" id="ps-status-{{ section.id }}-{{ block.id }}" aria-live="polite" aria-atomic="true">
       {% if in_stock %}
@@ -41,7 +37,7 @@
       {% if in_stock %}
         <a href="#ps-shipping-{{ section.id }}-{{ block.id }}" class="ps-shipping-link" onclick="this.closest('.ps-purchase-info').querySelector('.ps-shipping-detail').open = true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m3 7 9 5 9-5M12 12v10M7.5 4.5l9 5v5"/></svg>
-          <span>{% if show_fast_dispatch %}{{ block.settings.dispatch_label | escape }}{% else %}{{ block.settings.standard_dispatch_label | escape }}{% endif %}</span>
+          <span>{{ block.settings.standard_dispatch_label | escape }}</span>
         </a>
       {% endif %}
     </div>
@@ -96,6 +92,12 @@
         {% if shipping_url != blank %}<p><a href="{{ shipping_url }}">{{ 'presela.product.shipping_policy' | t }}</a></p>{% endif %}
       </div>
     </details>
+    <script>
+      (() => {
+        const shippingDetails = document.currentScript.previousElementSibling;
+        if (location.hash === '#' + shippingDetails.id) shippingDetails.open = true;
+      })();
+    </script>
   </div>
   {% if block.settings.show_vip %}
     <div class="ps-purchase-vip">
@@ -121,9 +123,7 @@
 {"type":"text","id":"stock_label","label":"In-stock label","default":"In stock"},
 {"type":"text","id":"backorder_label","label":"Backorder label","default":"Available on backorder"},
 {"type":"text","id":"available_label","label":"Untracked inventory label","default":"Available to order"},
-{"type":"checkbox","id":"show_dispatch","label":"Show one-business-day dispatch for in-stock products","default":false},
-{"type":"text","id":"dispatch_label","label":"Fast dispatch message","default":"Ships out in 1 business day"},
-{"type":"text","id":"standard_dispatch_label","label":"Standard dispatch message","default":"Dispatch in 24–72 hours"},
+{"type":"text","id":"standard_dispatch_label","label":"Standard dispatch message","default":"Ships out within 72 hours"},
 {"type":"checkbox","id":"show_payments","label":"Show enabled payment methods","default":true},
 {"type":"checkbox","id":"show_planned_payments","label":"Show labeled planned payment icons if none are enabled","default":true},
 {"type":"checkbox","id":"show_reviews","label":"Show reviews","default":true},
@@ -135,7 +135,7 @@
 {"type":"text","id":"guarantee_heading","label":"Guarantee heading","default":"Our Guarantee"},
 {"type":"richtext","id":"guarantee_content","label":"Guarantee content","default":"<p>We offer a 30-day money-back guarantee from delivery. Contact us with your order number for return and refund instructions.</p>"},
 {"type":"text","id":"shipping_heading","label":"Shipping heading","default":"Shipping & Delivery"},
-{"type":"richtext","id":"shipping_content","label":"Shipping content","default":"<p>We aim to dispatch orders within 24–72 hours after payment confirmation. Estimated delivery is 6–15 days after dispatch, depending on your location. We send tracking details when your order ships and tracking is available.</p>"},
+{"type":"richtext","id":"shipping_content","label":"Shipping content","default":"<p>We aim to dispatch orders within 72 hours after payment confirmation. Estimated delivery is 6–15 days after dispatch, depending on your location. We send tracking details when your order ships and tracking is available.</p>"},
 {"type":"checkbox","id":"show_vip","label":"Show VIP membership information","default":true},
 {"type":"text","id":"heading","label":"Heading","default":"Presela VIP Club · Billing explained"},
 {"type":"richtext","id":"billing","label":"Billing disclosure","default":"<p>Presela VIP Club is an <strong>optional membership</strong> priced at <strong>$29.99 USD every 28 days</strong>. If you choose to enroll, you are charged at enrollment and every 28 days thereafter until canceled. Buying a product alone does not enroll you in the membership.</p>"},

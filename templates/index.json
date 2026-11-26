@@ -207,28 +207,28 @@
           "type": "question",
           "settings": {
             "question": "When will my order ship?",
-            "answer": "<p>See the shipping policy and your order confirmation for processing and delivery estimates.</p>"
+            "answer": "<p>Orders ship out within 72 hours of payment confirmation. See our <a href=\"/pages/shipping-policy\">Shipping Policy</a> for delivery estimates.</p>"
           }
         },
         "question1": {
           "type": "question",
           "settings": {
             "question": "How do I track my order?",
-            "answer": "<p>Use the tracking information in your shipping confirmation when available.</p>"
+            "answer": "<p>Open the <a href=\"/pages/track-order\">Track Order page</a> and sign in with the email you used at checkout. Select your order to see its status and any carrier tracking details.</p>"
           }
         },
         "question2": {
           "type": "question",
           "settings": {
             "question": "What is your return policy?",
-            "answer": "<p>Our 30-day money-back guarantee covers eligible physical products. Contact us within 30 days of delivery for return instructions. <a href=\"/pages/refund-policy\">Read our refund policy.</a></p>"
+            "answer": "<p>Eligible physical products are covered by our 30-day money-back guarantee. See the <a href=\"/pages/refund-policy\">Refund Policy</a> for eligibility and how to request a return.</p>"
           }
         },
         "question3": {
           "type": "question",
           "settings": {
             "question": "How do I manage or cancel VIP membership?",
-            "answer": "<p>Sign in to your account or use the Cancel subscription link in our footer.</p>"
+            "answer": "<p>Go to the <a href=\"/pages/cancel-membership\">Cancel Membership page</a> to manage or cancel your Presela VIP membership.</p>"
           }
         }
       },
