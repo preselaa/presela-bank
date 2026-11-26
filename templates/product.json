@@ -237,16 +237,6 @@
               "type": "presela-purchase-info",
               "settings": {},
               "blocks": {}
-            },
-            "presela_guarantee": {
-              "type": "text",
-              "settings": {
-                "text": "<p>✓ <a href=\"/pages/refund-policy\">30-day money-back guarantee</a></p>",
-                "width": "100%",
-                "alignment": "left",
-                "type_preset": "rte"
-              },
-              "blocks": {}
             }
           },
           "block_order": [
@@ -254,7 +244,6 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "presela_guarantee",
             "presela_purchase_info",
             "text_aEtTtq"
           ]

@@ -201,3 +201,15 @@
 .product-form-buttons .ps-product-payment-icons{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:5px;margin:2px 0 0;padding:0;list-style:none}
 .product-form-buttons .ps-product-payment-icons svg{width:38px;height:24px;display:block}
 @media(max-width:749px){.product-form-buttons>span:has(add-to-cart-component),.product-form-buttons>add-to-cart-component{flex:0 0 100%!important;min-width:0!important;width:100%!important}.product-form-buttons add-to-cart-component{display:block;width:100%!important}.product-form-buttons .add-to-cart-button{width:100%!important;min-height:50px}.product-form-buttons .quantity-selector-wrapper{flex:0 0 100%!important}}
+
+/* Refined Presela purchase controls */
+.product-form-buttons .add-to-cart-button{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;background:#152e68;color:#fff;border:1px solid #152e68;border-radius:9px;font-size:16px;font-weight:700;letter-spacing:.015em;padding:14px 20px;box-shadow:0 3px 7px #102c6917;transition:background-color .15s ease,box-shadow .15s ease}
+.product-form-buttons .add-to-cart-button:not(:disabled):hover{background:#214f98;border-color:#214f98;box-shadow:0 4px 12px #102c6924}
+.product-form-buttons .add-to-cart-button:focus-visible{outline:2px solid #3179c9;outline-offset:3px}
+.product-form-buttons .add-to-cart-button:disabled{opacity:.55;box-shadow:none}
+.product-form-buttons .ps-product-payment-block{margin-top:2px}
+.product-form-buttons .ps-product-payment-icons{gap:5px;margin:0;padding:0}
+.product-form-buttons .ps-product-payment-icons svg{width:42px;height:27px;display:block}
+.ps-payment-availability{font-size:11px;line-height:1.4;text-align:center;margin:5px 0 0;color:#526581}
+@media(max-width:749px){.product-form-buttons .add-to-cart-button{display:flex;min-height:54px;width:100%!important;font-size:16px}.product-form-buttons .ps-product-payment-icons{gap:4px}.product-form-buttons .ps-product-payment-icons svg{width:38px;height:24px}}
+@media(prefers-reduced-motion:reduce){.product-form-buttons .add-to-cart-button{transition:none}}
