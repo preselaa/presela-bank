@@ -1,7 +1,7 @@
 {{ 'presela-vip-demo.css' | asset_url | stylesheet_tag }}
 {% liquid
   assign has_vip_access = false
-  if customer and customer.tags contains 'presela-vip-demo'
+  if customer and customer.tags contains 'presela-vip-demo' or customer and customer.tags contains 'presela-vip-active'
     assign has_vip_access = true
   endif
 %}
@@ -105,9 +105,9 @@
 {"type":"textarea","id":"intro","label":"Introduction","default":"Unlock half-price shopping and free delivery, all with your exclusive Presela VIP access."},
 {"type":"text","id":"benefits_heading","label":"Benefits heading","default":"Your VIP privileges"},
 {"type":"text","id":"tag_title","label":"Discount title","default":"50% off every product"},
-{"type":"textarea","id":"tag_desc","label":"Discount description","default":"Enjoy half off products with your member discount applied at checkout."},
+{"type":"textarea","id":"tag_desc","label":"Discount description","default":"Enjoy 50% off every merchandise product with your member discount."},
 {"type":"text","id":"truck_title","label":"Shipping title","default":"Free shipping"},
-{"type":"textarea","id":"truck_desc","label":"Shipping description","default":"No minimum spend on VIP deliveries."},
+{"type":"textarea","id":"truck_desc","label":"Shipping description","default":"Free shipping on every VIP order, with no minimum spend."},
 {"type":"text","id":"shield_title","label":"Guarantee title","default":"VIP low-price guarantee"},
 {"type":"textarea","id":"shield_desc","label":"Guarantee description","default":"Enjoy our VIP low-price guarantee on Presela purchases."},
 {"type":"checkbox","id":"shield_enabled","label":"Guarantee policy is active","default":false},

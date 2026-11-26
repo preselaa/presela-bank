@@ -14,14 +14,14 @@
       {% if vip_plan != blank %}<input type="hidden" name="selling_plan" value="{{ vip_plan.selling_plan.id }}">{% endif %}
       <input type="hidden" name="properties[Billing terms]" value="$29.99 every 28 days, renews until canceled">
       <input type="hidden" name="quantity" value="1">
-      <button type="submit" class="ps-member-primary ps-member-join">Join &amp; Save <span aria-hidden="true">→</span></button>
+      <button type="submit" class="ps-member-primary ps-member-join">Add to Cart <span aria-hidden="true">→</span></button>
       <span ref="liveRegion" class="visually-hidden" aria-live="polite"></span>
       <span ref="addToCartTextError" class="hidden ps-member-form-error" role="alert"></span>
     {% endform %}
   </product-form-component>
 {% else %}
   <div class="ps-vip-join-pending">
-    <button type="button" class="ps-member-primary ps-member-join" aria-describedby="ps-vip-join-status-{{ section.id }}" onclick="this.nextElementSibling.hidden=false">Join &amp; Save <span aria-hidden="true">→</span></button>
+    <button type="button" class="ps-member-primary ps-member-join" aria-describedby="ps-vip-join-status-{{ section.id }}" onclick="this.nextElementSibling.hidden=false">Add to Cart <span aria-hidden="true">→</span></button>
     <p id="ps-vip-join-status-{{ section.id }}" class="ps-vip-billing-status" role="status" hidden>Membership checkout is not ready yet. Please try again later.</p>
   </div>
 {% endif %}
