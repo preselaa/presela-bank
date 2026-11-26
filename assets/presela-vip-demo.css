@@ -1,16 +1,36 @@
-.ps-vip-hub{width:min(calc(100% - 32px),1050px);margin:clamp(24px,5vw,58px) auto clamp(38px,6vw,80px);color:#102c69}
-.ps-vip-hero{display:grid;justify-items:start;gap:13px;padding:clamp(25px,6vw,66px);border-radius:22px;background:linear-gradient(120deg,#101e3a,#1b4074);color:white}
-.ps-vip-hero p,.ps-vip-hero h1{margin:0}
-.ps-vip-hero h1{font-size:clamp(36px,7vw,70px);line-height:1.04;letter-spacing:-.045em;color:inherit}
-.ps-vip-name{color:#c2ddf7;font-size:12px;font-weight:700;letter-spacing:.15em}
-.ps-vip-hero p:not(.ps-vip-name){color:#e5effb;font-size:clamp(14px,2vw,17px);max-width:48ch}
-.ps-vip-hero .ps-vip-primary{display:inline-flex;align-items:center;justify-content:space-between;gap:22px;min-height:49px;margin-top:7px;padding-inline:19px;color:#102c69;background:#edf5ff;border-color:#edf5ff}
-.ps-vip-hero .ps-vip-primary:hover{color:#102c69;background:#dcecff}
-.ps-vip-benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,2vw,20px);margin-top:clamp(12px,2vw,22px)}
-.ps-vip-perk{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:clamp(18px,4vw,35px);border:1px solid #dce5ef;border-radius:16px;background:#fff}
-.ps-vip-perk--primary{background:#eef5fc;border-color:#d2e2f3}
-.ps-perk-icon{display:grid;place-items:center;width:46px;height:46px;margin-bottom:15px;border-radius:13px;color:#173e75;background:#dfeefa}
-.ps-vip-perk h2{margin:0 0 7px;font-size:clamp(17px,2.8vw,25px);letter-spacing:-.02em;line-height:1.16;color:#102c69}
-.ps-vip-perk p{margin:0;color:#465e7b;line-height:1.55;font-size:14px}
-.ps-vip-perk a{display:inline-block;padding-top:14px;color:#102c69;font-size:14px;font-weight:650;text-decoration:underline;text-underline-offset:3px}
-@media(max-width:550px){.ps-vip-hero{border-radius:16px}.ps-vip-hero .ps-vip-primary{width:100%}.ps-vip-perk{border-radius:12px;padding:15px}.ps-vip-perk p,.ps-vip-perk a{font-size:13px}.ps-perk-icon{width:39px;height:39px;margin-bottom:12px}}
+.ps-vip-hub{--navy:#101e3a;--ink:#102c69;--ice:#eef5fc;--line:#dbe7f4;width:min(calc(100% - 32px),1200px);margin:clamp(18px,4vw,48px) auto 64px;color:var(--navy)}
+.ps-vip-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;background:linear-gradient(125deg,#101e3a 12%,#16396d 72%,#285e99);border-radius:24px;padding:clamp(24px,5vw,60px);color:#fff}
+.ps-vip-name{display:inline-flex;align-items:center;gap:8px;color:#cce9ff;font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;margin:0 0 16px}
+.ps-vip-hero h1{color:#fff;font-size:clamp(34px,5.2vw,64px);line-height:1.04;letter-spacing:-.045em;margin:0 0 14px}
+.ps-vip-hero .ps-vip-intro{font-size:clamp(14px,2vw,17px);line-height:1.55;color:#e0efff;margin:0 0 20px;max-width:47ch}
+.ps-vip-primary{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:52px;padding:12px 24px;background:#fff;color:#102c69;text-decoration:none;font-weight:800;border-radius:9px}
+.ps-vip-primary:hover{background:#dcecff;color:#102c69}
+.ps-vip-membership{border:1px solid #86b8ea66;background:linear-gradient(145deg,#ffffff20,#ffffff09);border-radius:20px;padding:clamp(20px,3vw,35px);box-shadow:0 12px 30px #081a3b25}
+.ps-vip-card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#d8edff}
+.ps-vip-card-top svg{width:30px;height:30px}
+.ps-vip-big{font-size:clamp(62px,9vw,100px);font-weight:850;letter-spacing:-.085em;line-height:1;margin:14px 0 0;color:#fff}
+.ps-vip-big span{font-size:.42em;letter-spacing:0}
+.ps-vip-card-caption{color:#e3f0ff;font-size:15px;font-weight:600;margin:4px 0 18px}
+.ps-vip-card-footer{border-top:1px solid #ffffff38;padding-top:13px;color:#e7f3ff;font-size:13px;font-weight:650;display:flex;align-items:center;gap:7px}
+.ps-vip-section-head{margin:32px 0 14px}
+.ps-vip-section-head h2{font-size:clamp(25px,4vw,38px);font-weight:780;letter-spacing:-.035em;margin:0;color:#101e3a}
+.ps-vip-section-head p{font-size:14px;color:#52667f;margin:6px 0 0}
+.ps-vip-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ps-vip-perk{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:clamp(17px,2.4vw,28px);border:1px solid var(--line);border-radius:16px;background:#fff}
+.ps-vip-perk--primary{background:var(--ice);border-color:#cbdff2}
+.ps-perk-icon{display:grid;place-items:center;width:45px;height:45px;margin-bottom:15px;border-radius:12px;color:#163e78;background:#dcecfb}
+.ps-perk-icon svg{width:24px;height:24px}
+.ps-vip-perk h3{margin:0 0 7px;font-size:clamp(16px,2.2vw,21px);font-weight:780;letter-spacing:-.025em;line-height:1.2;color:var(--ink)}
+.ps-vip-perk p{margin:0;color:#465e7b;line-height:1.5;font-size:14px}
+.ps-vip-perk .ps-vip-upcoming{font-size:11px;font-weight:750;letter-spacing:.04em;text-transform:uppercase;color:#52667f;margin-top:12px}
+.ps-vip-perk a{margin-top:12px;color:#102c69;font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.ps-vip-featured{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ps-vip-product{min-width:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:white;display:flex;flex-direction:column;text-decoration:none;color:var(--navy)}
+.ps-vip-product img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;background:#f3f5f8}
+.ps-vip-product-info{padding:13px}
+.ps-vip-product-info h3{font-size:14px;line-height:1.3;margin:0 0 8px;color:var(--navy);font-weight:700}
+.ps-vip-shop-footer{display:flex;justify-content:center;margin:18px 0}
+.ps-vip-shop-footer a{background:var(--ink);color:white}
+.ps-vip-access-note{color:#e0efff;font-size:13px}
+.ps-vip-hub a:focus-visible{outline:3px solid #6caeff;outline-offset:3px}
+@media(max-width:700px){.ps-vip-hero{grid-template-columns:1fr;gap:20px;border-radius:18px;padding:23px}.ps-vip-primary{width:100%}.ps-vip-membership{padding:18px}.ps-vip-big{font-size:72px}.ps-vip-benefits,.ps-vip-featured{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ps-vip-perk{padding:15px;border-radius:12px}.ps-vip-perk p{font-size:13px}.ps-perk-icon{width:39px;height:39px;margin-bottom:11px}.ps-vip-product-info{padding:10px}}

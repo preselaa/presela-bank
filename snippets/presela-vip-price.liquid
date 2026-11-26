@@ -1,0 +1,19 @@
+{% liquid
+  assign vip_regular = variant.price
+  assign vip_discount = vip_regular | times: 0.5 | round
+  assign vip_cost = vip_regular | minus: vip_discount
+%}
+<div class="ps-vip-price-box">
+  <div class="ps-vip-price-main"><span>VIP price</span><strong>{{ vip_cost | money }}</strong></div>
+  <div class="ps-vip-price-compare"><span>Regular {{ vip_regular | money }}</span><span class="ps-vip-price-save">Save {{ vip_discount | money }}</span></div>
+  <small>50% member discount at checkout</small>
+</div>
+{% stylesheet %}
+.ps-vip-price-box{display:grid;gap:4px;padding:9px 10px;margin-top:6px;border:1px solid #d0e2f4;border-radius:8px;background:#eef5fc;color:#102c69;line-height:1.25;font-size:12px;text-align:left}
+.ps-vip-price-main,.ps-vip-price-compare{display:flex;align-items:baseline;gap:5px 8px;flex-wrap:wrap}
+.ps-vip-price-main span{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.035em}
+.ps-vip-price-main strong{font-size:clamp(17px,2.3vw,23px);font-weight:800;color:#102c69;letter-spacing:-.035em}
+.ps-vip-price-compare>span:first-child{color:#4c6078;font-size:11px}
+.ps-vip-price-save{background:#d5e8fb;color:#102c69;border-radius:4px;padding:3px 5px;font-size:10px;font-weight:750}
+.ps-vip-price-box small{font-size:10px;color:#52667f}
+{% endstylesheet %}
