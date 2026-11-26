@@ -149,7 +149,9 @@
         data-template="{{ template }}"
       >
         {% capture ps_page_content %}{{ content_for_layout }}{% endcapture %}
-        {% if template.name == "collection" and collection.handle == "vip-collection" %}
+        {% if template.name == "product" and product.handle == "presela-vip-membership" %}
+          {% render "presela-vip-product" %}
+        {% elsif template.name == "collection" and collection.handle == "vip-collection" %}
           {% if customer and customer.tags contains "presela-vip-active" %}
             <div class="ps-wrap ps-vip-member-banner"><strong>VIP Member Access · 50% off eligible products</strong><p>Your member discount is applied automatically at checkout.</p></div>
             {{ ps_page_content }}

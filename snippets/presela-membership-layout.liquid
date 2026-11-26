@@ -12,21 +12,7 @@
       <div class="ps-member-price"><strong>$29.99</strong><span>every 28 days</span></div>
       <p class="ps-member-renewal">Renews until canceled.</p>
       <div class="ps-member-ctas">
-        {% if membership_variant.available and membership_plan != blank %}
-          <script type="module" src="{{ 'product-form.js' | asset_url }}"></script>
-          <product-form-component data-product-id="{{ membership_product.id }}" data-quantity-default="1" on:submit="/handleSubmit">
-            {% form 'product', membership_product %}
-              <input type="hidden" name="id" ref="variantId" value="{{ membership_variant.id }}">
-              <input type="hidden" name="selling_plan" value="{{ membership_plan.selling_plan.id }}">
-              <input type="hidden" name="quantity" value="1">
-              <button type="submit" class="ps-member-primary ps-member-join">Join &amp; Save <span aria-hidden="true">→</span></button>
-              <span ref="liveRegion" class="visually-hidden" aria-live="polite"></span>
-              <span ref="addToCartTextError" class="hidden ps-member-form-error" role="alert"></span>
-            {% endform %}
-          </product-form-component>
-        {% else %}
-          <button type="button" class="ps-member-primary ps-member-join" disabled>Join &amp; Save <span aria-hidden="true">→</span></button>
-        {% endif %}
+        {% render 'presela-vip-join' %}
         <a class="ps-member-primary ps-member-existing" href="/collections/vip-collection">Existing Member? Click Here <span aria-hidden="true">→</span></a>
       </div>
       <p class="ps-member-renewal ps-member-signin-note">Already a member? Verify your email to access your benefits.</p>

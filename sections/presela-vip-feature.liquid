@@ -1,0 +1,22 @@
+{% assign vip_product = all_products['presela-vip-membership'] %}
+<section class="ps-vip-feature-wrap" aria-labelledby="ps-vip-feature-title-{{ section.id }}">
+  <div class="ps-vip-feature-media">
+    {% if vip_product.featured_image != blank %}
+      {{ vip_product.featured_image | image_url: width: 1100 | image_tag: loading: 'lazy', widths: '360,540,750,1100', sizes: '(min-width: 750px) 45vw, 90vw', alt: 'Presela VIP Membership' }}
+    {% else %}
+      <div class="ps-vip-feature-card"><span>✦ presela</span><strong>VIP</strong><small>MEMBERSHIP</small></div>
+    {% endif %}
+  </div>
+  <div class="ps-vip-feature-content">
+    <p class="ps-vip-feature-kicker">THE PRESELA VIP CLUB</p>
+    <h2 id="ps-vip-feature-title-{{ section.id }}">More style. More savings.</h2>
+    <p>Unlock exclusive member pricing and discover the benefits of shopping with Presela VIP.</p>
+    <div class="ps-vip-feature-price"><strong>$29.99</strong> <span>every 28 days</span></div>
+    <p class="ps-vip-feature-note">Automatically renews until canceled.</p>
+    <a class="ps-vip-feature-btn" href="/products/presela-vip-membership">Explore VIP membership <span aria-hidden="true">→</span></a>
+    <a class="ps-vip-feature-link" href="/collections/vip-collection">Already a member? Sign in</a>
+  </div>
+</section>
+{% schema %}
+{"name":"Presela VIP feature","settings":[],"presets":[{"name":"Presela VIP feature"}]}
+{% endschema %}

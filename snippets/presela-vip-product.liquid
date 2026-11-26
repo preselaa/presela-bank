@@ -1,0 +1,26 @@
+<section class="ps-vip-product-wrap" aria-labelledby="ps-vip-product-title">
+  <div class="ps-vip-feature-media">
+    {% if product.featured_image != blank %}
+      {{ product.featured_image | image_url: width: 1400 | image_tag: widths: '360,540,750,1100,1400', sizes: '(min-width: 750px) 48vw, 95vw', alt: product.title }}
+    {% else %}
+      <div class="ps-vip-feature-card"><span>✦ presela</span><strong>VIP</strong><small>MEMBERSHIP</small></div>
+    {% endif %}
+  </div>
+  <div class="ps-vip-product-content">
+    <p class="ps-vip-feature-kicker">EXCLUSIVE MEMBER ACCESS</p>
+    <h1 id="ps-vip-product-title">{{ product.title | escape }}</h1>
+    <div class="ps-vip-feature-price"><strong>{{ product.price | money }}</strong> <span>every 28 days</span></div>
+    <p class="ps-vip-feature-note">Automatically renews every 28 days until canceled.</p>
+    <p>Unlock exclusive member pricing on Presela merchandise. Your membership is digital and requires no physical delivery.</p>
+    <div class="ps-vip-product-perks">
+      <div><span aria-hidden="true">✓</span> 50% off VIP Collection products</div>
+      <div><span aria-hidden="true">✓</span> Exclusive member offers</div>
+      <div><span aria-hidden="true">✓</span> Secure member access</div>
+    </div>
+    <div class="ps-member-ctas">{% render 'presela-vip-join' %}</div>
+    <p class="ps-vip-product-terms"><a href="/pages/subscription-policy">Subscription terms</a> · <a href="/pages/cancel-membership">Cancel membership</a></p>
+    <a class="ps-vip-feature-link" href="/collections/vip-collection">Already a member? Sign in</a>
+    <details class="ps-vip-product-detail"><summary>How membership works</summary><p>After enrollment, sign in using your membership email to access member prices. Membership renews every 28 days until canceled.</p></details>
+    <details class="ps-vip-product-detail"><summary>How to cancel</summary><p>Visit our <a href="/pages/cancel-membership">cancellation page</a> before your next renewal to stop future charges.</p></details>
+  </div>
+</section>
