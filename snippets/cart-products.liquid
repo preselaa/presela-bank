@@ -149,7 +149,7 @@
               <tr
                 id="CartItem-{{ item.key }}"
                 role="row"
-                class="cart-items__table-row{% if item.parent_relationship.parent != null %} cart-items__nested-line{% endif %}{% if context == 'drawer' %}{% unless item.unit_price_measurement %} cart-items__table-row--full-width-variants{% endunless %}{% endif %}"
+                class="cart-items__table-row{% if item.product.handle == 'presela-vip-membership' %} ps-cart-vip-row{% endif %}{% if item.parent_relationship.parent != null %} cart-items__nested-line{% endif %}{% if context == 'drawer' %}{% unless item.unit_price_measurement %} cart-items__table-row--full-width-variants{% endunless %}{% endif %}"
                 ref="cartItemRows[]"
                 data-parent-key="{{ item.parent_relationship.parent.key }}"
                 data-key="{{ item.key }}"
@@ -213,6 +213,9 @@
                         mode: 'trigger'
                       -%}
                     </div>
+                    {% if item.product.handle == 'presela-vip-membership' %}
+                      <p class="ps-cart-vip-terms">Every 28 days · Renews until canceled</p>
+                    {% endif %}
                     {% if item.product.vendor and block_settings.vendor %}
                       <p>
                         <bdi>{{ item.product.vendor }}</bdi>
@@ -256,7 +259,7 @@
                         assign has_visible_properties = false
                         for property in item.properties
                           assign property_first_char = property.first | slice: 0
-                          if property.last != blank and property_first_char != '_'
+                          if property.last != blank and property_first_char != '_' and property.first != 'Billing terms'
                             assign has_visible_properties = true
                             break
                           endif
@@ -266,7 +269,7 @@
                         <dl class="cart-items__properties">
                           {%- for property in item.properties -%}
                             {%- assign property_first_char = property.first | slice: 0 -%}
-                            {%- if property.last != blank and property_first_char != '_' -%}
+                            {%- if property.last != blank and property_first_char != '_' and property.first != 'Billing terms' -%}
                               <div class="cart-items__property">
                                 <dt>{{ property.first }}:</dt>
                                 <dd>
@@ -301,7 +304,7 @@
                     {%- endif -%}
                   </div>
 
-                  <div class="cart-items__unit-price-wrapper">
+                  <div class="cart-items__unit-price-wrapper{% if item.product.handle == 'presela-vip-membership' %} ps-cart-vip-unit-price{% endif %}">
                     <div>
                       {% if item.original_price != item.final_price %}
                         <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>

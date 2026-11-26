@@ -8,7 +8,7 @@
     if item.product.id == protection.id
       assign protection_added = true
       assign protection_key = item.key
-    elsif item.requires_shipping
+    elsif item.requires_shipping and item.product.handle != 'presela-vip-membership'
       assign physical_items = true
     endif
   endfor

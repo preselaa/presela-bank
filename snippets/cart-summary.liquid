@@ -261,7 +261,6 @@
   endfor
 %}
 <div class="cart__ctas">
-  {% if ps_membership_checkout_pending %}<p class="ps-cart-membership-note" role="status">VIP Membership: $29.99 every 28 days, renews until canceled. Membership checkout will be available once payment setup is complete.</p>{% endif %}
   <button
     type="submit"
     id="checkout"
@@ -273,7 +272,7 @@
     form="cart-form"
   >
     <span class="button-text">
-      {{ 'content.checkout' | t }}
+      {% if ps_membership_checkout_pending %}Checkout unavailable{% else %}{{ 'content.checkout' | t }}{% endif %}
     </span>
   </button>
 
