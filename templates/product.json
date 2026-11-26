@@ -241,6 +241,11 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "presela_purchase_info": {
+              "type": "presela-purchase-info",
+              "settings": {},
+              "blocks": {}
             }
           },
           "block_order": [
@@ -248,6 +253,7 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "presela_purchase_info",
             "text_aEtTtq"
           ]
         },

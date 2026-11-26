@@ -1,0 +1,41 @@
+<div class="ps-purchase-info" {{ block.shopify_attributes }}>
+  {% if block.settings.show_payments and shop.enabled_payment_types.size > 0 %}
+    <ul class="ps-purchase-payments" role="list" aria-label="Accepted payment methods">
+      {% for type in shop.enabled_payment_types %}
+        <li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>
+      {% endfor %}
+    </ul>
+  {% elsif block.settings.show_payments and request.design_mode %}
+    <p class="ps-payment-preview-label">Payment icon preview — not active payment methods</p>
+    <ul class="ps-purchase-payments" role="list" aria-label="Example payment methods">
+      {% assign preview_types = 'apple_pay,google_pay,visa,master,american_express,diners_club,discover,jcb,paypal' | split: ',' %}
+      {% for type in preview_types %}<li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+  {% if block.settings.show_vip %}
+    <div class="ps-purchase-vip">
+      <h2><span aria-hidden="true"></span>{{ block.settings.heading | escape }}</h2>
+      {{ block.settings.billing }}
+      {{ block.settings.benefits }}
+      <p>To manage or cancel your membership, visit our <a href="/pages/cancel-membership">Cancel Membership page</a>, sign in to your <a href="{{ routes.account_url }}">account</a>, or <a href="mailto:{{ shop.email | escape }}">email us</a>. Cancel before your next renewal to avoid another charge. See our <a href="/pages/subscription-policy">Subscription Policy</a> for full details.</p>
+    </div>
+  {% endif %}
+</div>
+{% stylesheet %}
+.ps-purchase-info{width:100%;min-width:0}
+.ps-purchase-payments{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;list-style:none;margin:0 0 15px;padding:0}
+.ps-purchase-payments li{display:flex;align-items:center}
+.ps-purchase-payments .ps-payment-logo{width:42px;height:27px;display:block}
+.ps-payment-preview-label{font-size:12px;color:#465e7b;text-align:center;margin:0 0 8px}
+.ps-purchase-vip{border-top:1px solid #d9e3f0;padding-top:16px;color:#465e7b;font-size:14px;line-height:1.7}
+.ps-purchase-vip h2{display:flex;align-items:baseline;gap:8px;color:#102c69;font-size:12px;letter-spacing:.12em;line-height:1.5;text-transform:uppercase;font-weight:700;margin:0 0 12px}
+.ps-purchase-vip h2 span{width:7px;height:7px;background:#214f98;flex:none;align-self:center}
+.ps-purchase-vip p{margin:0 0 12px}
+.ps-purchase-vip p:last-child{margin-bottom:0}
+.ps-purchase-vip strong{color:#102c69;font-weight:700}
+.ps-purchase-vip a{color:#102c69;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.ps-purchase-vip a:focus-visible{outline:2px solid #214f98;outline-offset:3px}
+{% endstylesheet %}
+{% schema %}
+{"name":"Presela purchase info","tag":null,"settings":[{"type":"checkbox","id":"show_payments","label":"Show enabled payment methods","default":true},{"type":"checkbox","id":"show_vip","label":"Show VIP membership information","default":true},{"type":"text","id":"heading","label":"Heading","default":"Presela VIP Club · Billing explained"},{"type":"richtext","id":"billing","label":"Billing disclosure","default":"<p>Presela VIP Club is an <strong>optional membership</strong> priced at <strong>$29.99 USD every 28 days</strong>. If you choose to enroll, you are charged at enrollment and every 28 days thereafter until canceled. Buying a product alone does not enroll you in the membership.</p>"},{"type":"richtext","id":"benefits","label":"Membership benefits","default":"<p>Active members receive <strong>50% off eligible VIP Collection products</strong> and access to exclusive member offers. Product eligibility and availability may vary.</p>"}],"presets":[{"name":"Presela purchase info"}]}
+{% endschema %}
