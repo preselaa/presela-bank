@@ -264,3 +264,4 @@
 .ps-member-cancel-submit span{margin-left:8px}
 .ps-member-cancel>p.ps-member-cancel-alt{font-size:12px;margin:16px 0 0;overflow-wrap:anywhere}
 .ps-member-faq summary:focus-visible,.ps-member-cancel input:focus-visible,.ps-member-cancel textarea:focus-visible,.ps-member-cancel-submit:focus-visible{outline:2px solid #285e99;outline-offset:3px}
+.ps-member-cancel-form input::placeholder,.ps-member-cancel-form textarea::placeholder{color:#718096;opacity:1}

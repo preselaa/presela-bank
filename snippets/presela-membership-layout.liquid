@@ -8,9 +8,9 @@
       <span class="ps-member-symbol" aria-hidden="true">✦</span>
       <p class="ps-member-kicker">THE PRESELA VIP CLUB</p>
       <h1>Why become a member?</h1>
-      <p>Discover exclusive member savings, special offers and a better way to shop Presela.</p>
+      <p>Presela VIP gives you access to products at exclusive member prices. Enjoy lower prices and better value.</p>
       <div class="ps-member-price"><strong>$29.99</strong><span>every 28 days</span></div>
-      <p class="ps-member-renewal">Optional membership. Automatically renews every 28 days until canceled.</p>
+      <p class="ps-member-renewal">Renews until canceled.</p>
       <div class="ps-member-ctas">
         {% if membership_variant.available and membership_plan != blank %}
           <script type="module" src="{{ 'product-form.js' | asset_url }}"></script>
@@ -38,12 +38,10 @@
         <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v4H3zM5 12h14v9H5zM12 8v13M12 8C4 8 5 1 9 3c2 1 3 5 3 5Zm0 0c8 0 7-7 3-5-2 1-3 5-3 5Z"/></svg></span><div><h3>Exclusive member deals</h3><p>Discover special offers for active VIP members.</p></div></div>
         <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/></svg></span><div><h3>Member-only access</h3><p>Sign in securely with your membership email.</p></div></div>
       </div>
-      <nav class="ps-member-links" aria-label="Membership resources"><a href="/collections/vip-collection">VIP Collection</a><a href="/pages/cancel-membership">Cancel membership</a><a href="/pages/subscription-policy">Subscription policy</a></nav>
       <section class="ps-member-faq" aria-labelledby="ps-vip-faq-title">
-        <p class="ps-member-section-kicker">MEMBERSHIP HELP</p>
         <h2 id="ps-vip-faq-title">Frequently asked questions</h2>
         <details><summary>How do I join?</summary><p>Choose Join &amp; Save, review the membership terms and complete checkout when enrollment is open. Use the email associated with your membership to sign in and access your VIP benefits.</p></details>
-        <details><summary>Is the membership fee a recurring charge?</summary><p>Yes. Presela VIP costs $29.99 USD every 28 days and automatically renews until canceled. Membership is optional.</p></details>
+        <details><summary>Is the membership fee a recurring charge?</summary><p>Yes. Presela VIP costs $29.99 USD every 28 days and automatically renews until canceled.</p></details>
         <details><summary>How do I access my VIP benefits?</summary><p>Select Existing Member? Click Here and verify your membership email. Active members can access the <a href="/collections/vip-collection">VIP Collection</a>.</p></details>
         <details><summary>How do I cancel my membership?</summary><p>You can cancel at any time before your next renewal. Use the <a href="/pages/cancel-membership">cancellation page</a>, submit the form below or email <a href="mailto:{{ membership_email }}">{{ membership_email }}</a>. No survey or additional purchase is required. We will confirm cancellation.</p></details>
       </section>
@@ -56,9 +54,9 @@
           {% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}
           <input type="hidden" name="contact[Request type]" value="VIP membership cancellation">
           <label for="VipCancelName">Name</label>
-          <input id="VipCancelName" name="contact[name]" autocomplete="name" value="{{ customer.name | escape }}">
+          <input id="VipCancelName" name="contact[name]" autocomplete="name" placeholder="Your name">
           <label for="VipCancelEmail">Membership email <span aria-hidden="true">*</span></label>
-          <input id="VipCancelEmail" type="email" name="contact[email]" autocomplete="email" value="{{ customer.email | escape }}" required>
+          <input id="VipCancelEmail" type="email" name="contact[email]" autocomplete="email" placeholder="name@example.com" required>
           <label for="VipCancelOrder">Order number (optional)</label>
           <input id="VipCancelOrder" name="contact[Order number]">
           <label for="VipCancelMessage">Message (optional)</label>
