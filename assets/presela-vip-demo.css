@@ -34,3 +34,18 @@
 .ps-vip-access-note{color:#e0efff;font-size:13px}
 .ps-vip-hub a:focus-visible{outline:3px solid #6caeff;outline-offset:3px}
 @media(max-width:700px){.ps-vip-hero{grid-template-columns:1fr;gap:20px;border-radius:18px;padding:23px}.ps-vip-primary{width:100%}.ps-vip-membership{padding:18px}.ps-vip-big{font-size:72px}.ps-vip-benefits,.ps-vip-featured{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ps-vip-perk{padding:15px;border-radius:12px}.ps-vip-perk p{font-size:13px}.ps-perk-icon{width:39px;height:39px;margin-bottom:11px}.ps-vip-product-info{padding:10px}}
+.ps-vip-big span{margin-left:.16em;display:inline-block;letter-spacing:0}
+.ps-vip-form{display:block;padding:0 13px 13px;margin-top:auto}
+.ps-vip-form form{display:grid;gap:7px}
+.ps-vip-option-label{font-size:11px;font-weight:700;color:#102c69}
+.ps-vip-option{width:100%;min-width:0;border:1px solid #cbdff2;border-radius:7px;background:white;color:#102c69;padding:8px;font-size:12px}
+.ps-vip-add{width:100%;min-height:44px;border:0;border-radius:8px;background:#102c69;color:white;font-size:14px;font-weight:750;cursor:pointer}
+.ps-vip-add:hover{background:#234b83}
+.ps-vip-support{margin-top:36px;background:#eef5fc;border:1px solid #dbe7f4;border-radius:20px;padding:clamp(20px,4vw,40px)}
+.ps-vip-support-label{font-size:12px;font-weight:800;letter-spacing:.12em;color:#285e99;margin:0 0 8px}
+.ps-vip-support h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.04em;margin:0;color:#101e3a}
+.ps-vip-support p:not(.ps-vip-support-label){color:#52667f;margin:8px 0 20px}
+.ps-vip-support-button{display:flex;align-items:center;justify-content:center;gap:10px;background:#102c69;color:white;text-decoration:none;border-radius:999px;min-height:52px;font-weight:750;margin-top:12px;padding:12px}
+.ps-vip-support-button svg{width:22px;height:22px}
+.ps-vip-support-secondary{background:#cce5fb;color:#102c69}
+#ps-vip-shop{scroll-margin-top:100px}

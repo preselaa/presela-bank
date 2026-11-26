@@ -12,7 +12,7 @@
       <h1 id="presela-vip-heading">{{ section.settings.heading | escape }}</h1>
       <p class="ps-vip-intro">{{ section.settings.intro | escape }}</p>
       {% if has_vip_access %}
-        <a class="ps-vip-primary" href="{{ routes.all_products_collection_url }}">Shop the VIP prices <span aria-hidden="true">→</span></a>
+        <a class="ps-vip-primary" href="#ps-vip-shop">Shop the VIP prices <span aria-hidden="true">→</span></a>
       {% elsif customer %}
         <p class="ps-vip-access-note">This account does not currently have access to the full VIP shopping benefits.</p>
         <a class="ps-vip-primary" href="{{ pages['contact'].url }}">Get membership help →</a>
@@ -23,7 +23,7 @@
     <div class="ps-vip-membership">
       <div class="ps-vip-card-top"><span>PRESELA / VIP</span><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m4 9 6 6 6-10 6 10 6-6-3 14H7L4 9Z"/><path d="M8 27h16"/></svg></div>
       <div class="ps-vip-big">50<span>% OFF</span></div>
-      <p class="ps-vip-card-caption">Every eligible product. Every VIP order.</p>
+      <p class="ps-vip-card-caption">Every product. Every VIP order.</p>
       <div class="ps-vip-card-footer"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg> {% if has_vip_access %}VIP access unlocked{% else %}Exclusive member benefits{% endif %}</div>
     </div>
   </header>
@@ -47,26 +47,57 @@
         </svg></span>
         <h3>{{ section.settings[title_key] | escape }}</h3>
         <p>{{ section.settings[desc_key] | escape }}</p>
-        {% if forloop.index > 2 and section.settings[enabled_key] != true %}<span class="ps-vip-upcoming">Planned benefit</span>{% endif %}
         {% if icon == 'headset' %}<a href="{{ pages['contact'].url }}">Contact support →</a>{% endif %}
       </article>
     {% endfor %}
   </div>
   {% if has_vip_access %}
-    <div class="ps-vip-section-head"><h2>See what you save</h2><p>Shop regular products at your exclusive member rate.</p></div>
+    <div class="ps-vip-section-head" id="ps-vip-shop"><h2>See what you save</h2><p>Shop regular products at your exclusive member rate.</p></div>
     <div class="ps-vip-featured">
-      {% for item in collections.all.products limit: 8 %}
+      {% for item in collections.all.products limit: 50 %}
         {% if item.available and item.featured_image and item.handle != "shipping-protection" %}
-          <a class="ps-vip-product" href="{{ item.url }}">
+          <article class="ps-vip-product">
             {{ item.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: item.title }}
             <div class="ps-vip-product-info"><h3>{{ item.title | escape }}</h3>{% render 'presela-vip-price', variant: item.selected_or_first_available_variant %}</div>
-          </a>
+            <product-form-component data-product-id="{{ item.id }}" data-quantity-default="1" class="ps-vip-form" on:submit="/handleSubmit">
+              {% form 'product', item %}
+                <input type="hidden" name="id" ref="variantId" value="{{ item.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                {% unless item.has_only_default_variant %}
+                  <label class="ps-vip-option-label" for="vip-option-{{ item.id }}">Choose option</label>
+                  <select id="vip-option-{{ item.id }}" class="ps-vip-option">
+                    {% for variant in item.variants %}
+                      {% assign saving = variant.price | times: 0.5 | round %}
+                      <option value="{{ variant.id }}" data-regular="{{ variant.price | money | escape }}" data-vip="{{ variant.price | minus: saving | money | escape }}" data-saving="{{ saving | money | escape }}" {% unless variant.available %}disabled{% endunless %} {% if variant.id == item.selected_or_first_available_variant.id %}selected{% endif %}>{{ variant.title | escape }}</option>
+                    {% endfor %}
+                  </select>
+                {% endunless %}
+                <button type="submit" class="ps-vip-add">Add to cart</button>
+                <span ref="liveRegion" class="visually-hidden" aria-live="polite"></span>
+                <span ref="addToCartTextError" class="hidden" role="alert"></span>
+              {% endform %}
+            </product-form-component>
+          </article>
         {% endif %}
       {% endfor %}
     </div>
-    <div class="ps-vip-shop-footer"><a class="ps-vip-primary" href="{{ routes.all_products_collection_url }}">Shop all products →</a></div>
   {% endif %}
-  <div class="ps-vip-section-head"><h2>Here when you need us</h2><p><a href="{{ pages['track-order'].url }}">Track your order</a> · <a href="{{ pages['contact'].url }}">Contact us</a> · <a href="{{ routes.account_url }}">Your account</a></p></div>
+  <div class="ps-vip-support">
+    <p class="ps-vip-support-label">VIP SUPPORT</p><h2>Here when you need us</h2><p>Need help with your order? We're here to help.</p>
+    <a href="/pages/contact" class="ps-vip-support-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 13v-2a8 8 0 0 1 16 0v2M19 17c0 2-2 4-5 4h-2"/><rect x="3" y="12" width="4" height="6" rx="1"/><rect x="17" y="12" width="4" height="6" rx="1"/></svg>Contact us</a>
+    <a href="/pages/track-order" class="ps-vip-support-button ps-vip-support-secondary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h12v11H3zM15 10h3l3 4v3h-6"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Track order</a>
+  </div>
+  <script type="module" src="{{ 'product-form.js' | asset_url }}"></script>
+  <script>
+    document.addEventListener('change', function(e) {
+      if (!e.target.matches('.ps-vip-option')) return;
+      const option = e.target.selectedOptions[0], card = e.target.closest('.ps-vip-product');
+      card.querySelector('input[name="id"]').value = option.value;
+      card.querySelector('.ps-vip-price-main strong').textContent = option.dataset.vip;
+      card.querySelector('.ps-vip-price-compare > span:first-child').textContent = 'Regular ' + option.dataset.regular;
+      card.querySelector('.ps-vip-price-save').textContent = 'Save ' + option.dataset.saving;
+    });
+  </script>
 </section>
 {% schema %}
 {"name":"VIP benefits","settings":[
@@ -74,20 +105,21 @@
 {"type":"textarea","id":"intro","label":"Introduction","default":"Unlock half-price shopping and free delivery, all with your exclusive Presela VIP access."},
 {"type":"text","id":"benefits_heading","label":"Benefits heading","default":"Your VIP privileges"},
 {"type":"text","id":"tag_title","label":"Discount title","default":"50% off every product"},
-{"type":"textarea","id":"tag_desc","label":"Discount description","default":"Enjoy half off eligible products with your member discount applied at checkout."},
+{"type":"textarea","id":"tag_desc","label":"Discount description","default":"Enjoy half off products with your member discount applied at checkout."},
 {"type":"text","id":"truck_title","label":"Shipping title","default":"Free shipping"},
-{"type":"textarea","id":"truck_desc","label":"Shipping description","default":"No minimum spend on eligible VIP deliveries."},
+{"type":"textarea","id":"truck_desc","label":"Shipping description","default":"No minimum spend on VIP deliveries."},
 {"type":"text","id":"shield_title","label":"Guarantee title","default":"VIP low-price guarantee"},
-{"type":"textarea","id":"shield_desc","label":"Guarantee description","default":"Our planned promise to protect your member savings on Presela purchases."},
+{"type":"textarea","id":"shield_desc","label":"Guarantee description","default":"Enjoy our VIP low-price guarantee on Presela purchases."},
 {"type":"checkbox","id":"shield_enabled","label":"Guarantee policy is active","default":false},
 {"type":"text","id":"gift_title","label":"Rewards title","default":"Monthly surprise rewards"},
-{"type":"textarea","id":"gift_desc","label":"Rewards description","default":"Look forward to member gifts, bonus offers and special treats as the rewards program rolls out."},
+{"type":"textarea","id":"gift_desc","label":"Rewards description","default":"Enjoy monthly surprises, member gifts and bonus offers."},
 {"type":"checkbox","id":"gift_enabled","label":"Monthly rewards program is active","default":false},
 {"type":"text","id":"headset_title","label":"Support title","default":"Priority support"},
-{"type":"textarea","id":"headset_desc","label":"Support description","default":"A dedicated priority queue for VIP requests is planned, so members can get help sooner."},
+{"type":"textarea","id":"headset_desc","label":"Support description","default":"Your support requests receive priority handling."},
 {"type":"checkbox","id":"headset_enabled","label":"Priority routing is active","default":false},
 {"type":"text","id":"spark_title","label":"Early access title","default":"Early access & exclusive drops"},
 {"type":"textarea","id":"spark_desc","label":"Early access description","default":"Get first access to selected new releases and member-only offers when available."},
 {"type":"checkbox","id":"spark_enabled","label":"Early access program is active","default":false}
 ]}
 {% endschema %}
+

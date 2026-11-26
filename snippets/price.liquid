@@ -75,7 +75,7 @@
 -%}
 
 <div ref="priceContainer">
-  {% if customer and customer.tags contains "presela-vip-demo" and product_resource != blank and selected_variant != blank and product_resource.handle != "shipping-protection" %}
+  {% if request.page_type == "page" and page.handle == "vip-access" and customer and customer.tags contains "presela-vip-demo" and product_resource != blank and selected_variant != blank and product_resource.handle != "shipping-protection" %}
     {% render "presela-vip-price", variant: selected_variant %}
   {% else %}
   {% if has_volume_pricing %}
@@ -138,3 +138,4 @@
     {{- 'content.volume_pricing_available' | t -}}
   </small>
 {%- endif -%}
+
