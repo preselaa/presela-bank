@@ -21,8 +21,8 @@
   {% if product.tags contains 'ships-in-1-business-day' %}
     {% assign show_fast_dispatch = true %}
   {% endif %}
-  <div class="ps-purchase-status" id="ps-status-{{ section.id }}-{{ block.id }}" aria-live="polite" aria-atomic="true">
-    {% unless stock_unverified %}
+  {% unless stock_unverified %}
+    <div class="ps-purchase-status" id="ps-status-{{ section.id }}-{{ block.id }}" aria-live="polite" aria-atomic="true">
       {% if in_stock %}
         <span class="ps-stock"><span class="ps-stock-dot" aria-hidden="true"></span>{{ block.settings.stock_label | escape }}</span>
       {% elsif variant.available and variant.inventory_management == blank %}
@@ -32,12 +32,14 @@
       {% else %}
         <span class="ps-stock ps-stock--muted"><span class="ps-stock-dot" aria-hidden="true"></span>{{ 'products.product.sold_out' | t }}</span>
       {% endif %}
-    {% endunless %}
-    <a href="#ps-shipping-{{ section.id }}-{{ block.id }}" class="ps-shipping-link" onclick="this.closest('.ps-purchase-info').querySelector('.ps-shipping-detail').open = true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m3 7 9 5 9-5M12 12v10M7.5 4.5l9 5v5"/></svg>
-      <span>{% if in_stock and show_fast_dispatch %}{{ block.settings.dispatch_label | escape }}{% elsif in_stock %}{{ block.settings.standard_dispatch_label | escape }}{% else %}{{ block.settings.shipping_heading | escape }}{% endif %}</span>
-    </a>
-  </div>
+      {% if in_stock %}
+        <a href="#ps-shipping-{{ section.id }}-{{ block.id }}" class="ps-shipping-link" onclick="this.closest('.ps-purchase-info').querySelector('.ps-shipping-detail').open = true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m3 7 9 5 9-5M12 12v10M7.5 4.5l9 5v5"/></svg>
+          <span>{% if show_fast_dispatch %}{{ block.settings.dispatch_label | escape }}{% else %}{{ block.settings.standard_dispatch_label | escape }}{% endif %}</span>
+        </a>
+      {% endif %}
+    </div>
+  {% endunless %}
   {% if block.settings.show_payments %}
     {% assign enabled_types = shop.enabled_payment_types %}
     {% if enabled_types.size > 0 %}
@@ -47,7 +49,6 @@
       </ul>
     {% elsif block.settings.show_planned_payments or request.design_mode %}
       <div class="ps-payment-preview">
-        <p class="ps-payment-preview-label">{{ 'presela.product.planned_payments' | t }}</p>
         <ul class="ps-purchase-payments" role="list" aria-label="{{ 'presela.product.planned_payments' | t | escape }}">
           {% for type in preferred_types %}<li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>{% endfor %}
         </ul>
