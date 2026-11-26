@@ -1,37 +1,44 @@
 {% liquid
-  assign protection = settings.presela_protection_product
-  if protection != blank
-    assign protection_variant = protection.selected_or_first_available_variant
-    assign protection_added = false
-    assign physical_items = false
-    for item in cart.items
-      if item.product.id == protection.id
-        assign protection_added = true
-      elsif item.requires_shipping
-        assign physical_items = true
-      endif
-    endfor
-  endif
+  assign protection = settings.presela_protection_product | default: all_products['shipping-protection']
+  assign protection_variant = protection.selected_or_first_available_variant
+  assign protection_added = false
+  assign protection_key = ''
+  assign physical_items = false
+  for item in cart.items
+    if item.product.id == protection.id
+      assign protection_added = true
+      assign protection_key = item.key
+    elsif item.requires_shipping
+      assign physical_items = true
+    endif
+  endfor
 %}
 <div data-hydration-key="presela-shipping-protection">
-{% if protection_variant.available and physical_items %}
-  <div class="ps-protection">
-    <div class="ps-protection-info">
-      {% if protection.featured_image %}{{ protection.featured_image | image_url: width: 96 | image_tag: loading: 'lazy', widths: '48,96', alt: '' }}{% else %}
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-3Z"/><path d="m8 12 2.5 2.5L16 9"/></svg>
-      {% endif %}
-      <div><strong>Shipping protection · Optional</strong><p>{{ settings.presela_protection_description | escape }}</p><span>{{ protection_variant.price | money }}</span></div>
+  {% if protection_variant.available and physical_items or protection_added %}
+    <div class="ps-protection ps-protection-toggle">
+      <div class="ps-protection-row">
+        <span class="ps-protection-icon">
+          {% if protection.featured_image != blank %}
+            {{ protection.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+          {% elsif settings.presela_protection_icon != blank %}
+            {{ settings.presela_protection_icon | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+          {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-3Z"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+          {% endif %}
+        </span>
+        <div class="ps-protection-copy">
+          <strong>Shipping Protection</strong>
+          <p>{{ settings.presela_protection_description | escape }}</p>
+        </div>
+        <span class="ps-protection-price">{{ protection_variant.price | money }}</span>
+        <form action="{% if protection_added %}{{ routes.cart_change_url }}{% else %}{{ routes.cart_add_url }}{% endif %}" method="post" data-ps-protection-form data-action="{% if protection_added %}remove{% else %}add{% endif %}">
+          <input type="hidden" name="id" value="{% if protection_added %}{{ protection_key | escape }}{% else %}{{ protection_variant.id }}{% endif %}">
+          <input type="hidden" name="quantity" value="{% if protection_added %}0{% else %}1{% endif %}">
+          <button class="ps-protection-switch" type="submit" role="switch" aria-label="Shipping protection, {{ protection_variant.price | money | escape }}" aria-checked="{{ protection_added }}"><span aria-hidden="true"></span></button>
+        </form>
+      </div>
+      <p class="ps-protection-note">{% if protection_added %}Added to your order · Switch off to remove{% else %}Optional · Not included unless selected{% endif %}</p>
+      <p data-ps-protection-error role="alert"></p>
     </div>
-    {% if protection_added %}
-      <p class="ps-protection-added">Added · Remove from cart anytime</p>
-    {% else %}
-      <form action="{{ routes.cart_add_url }}" method="post" data-ps-protection-form>
-        <input type="hidden" name="id" value="{{ protection_variant.id }}">
-        <input type="hidden" name="quantity" value="1">
-        <button class="button button-secondary" type="submit">Add protection</button>
-        <p class="ps-protection-choice">Not included unless you choose to add it.</p><p data-ps-protection-error role="alert"></p>
-      </form>
-    {% endif %}
-  </div>
-{% endif %}
+  {% endif %}
 </div>

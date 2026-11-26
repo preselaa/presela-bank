@@ -2131,6 +2131,11 @@
         "id": "presela_protection_description",
         "label": "Description",
         "default": "Optional shipping protection. Review the product terms before adding."
+      },
+      {
+        "type": "image_picker",
+        "id": "presela_protection_icon",
+        "label": "Shipping protection icon"
       }
     ]
   }

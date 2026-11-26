@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "current": {
     "logo_height": 40,
@@ -87,7 +78,10 @@
     "palette_primary_button_text": "#ffffff",
     "palette_primary_button_border": "#102c69",
     "logo": "shopify://shop_images/ChatGPT_Image_Nov_26_2026_03_17_35_AM.png",
-    "favicon": "shopify://shop_images/ChatGPT_Image_Nov_26_2026_03_17_29_AM.png"
+    "favicon": "shopify://shop_images/ChatGPT_Image_Nov_26_2026_03_17_29_AM.png",
+    "presela_protection_product": "shipping-protection",
+    "presela_protection_icon": "shopify://shop_images/ChatGPTImageNov26_2026_07_20_16AM.png",
+    "presela_protection_description": "Optional protection for loss, damage or theft in transit."
   },
   "presets": {
     "Default": {
