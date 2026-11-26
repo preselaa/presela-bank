@@ -1,0 +1,61 @@
+<section class="ps-wrap ps-faq"><div class="ps-intro"><h2>{{ section.settings.heading | escape }}</h2>{{ section.settings.intro }}</div><div class="ps-questions">{% for block in section.blocks %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.question | escape }}<span aria-hidden="true">+</span></summary><div class="ps-answer">{{ block.settings.answer }}</div></details>{% endfor %}</div><div class="ps-faq-cta"><a class="button" href="{{ section.settings.link | default: '/pages/contact' }}">{{ section.settings.button | escape }}</a></div></section>
+{% schema %}
+{
+  "name": "Presela FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently asked questions"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>Answers to your most common questions.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button label",
+      "default": "Contact us"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How can we help?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Contact our support team.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Presela FAQ",
+      "blocks": [
+        {
+          "type": "question"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,29 @@
+<aside class="ps-promo" aria-label="Store announcement"><a href="{{ section.settings.link | default: '/collections/vip-collection' }}">{{ section.settings.text | escape }} <span aria-hidden="true">→</span></a></aside>
+{% schema %}
+{
+  "name": "Presela announcement",
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement",
+      "default": "VIP Sale · Up to 70% Off"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Announcement link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Presela announcement"
+    }
+  ]
+}
+{% endschema %}

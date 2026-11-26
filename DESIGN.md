@@ -1,0 +1,3 @@
+# Presela
+
+Friendly everyday retail and optional VIP membership. Confident navy, light blue and white. Use #102c69 for navy, #214f98 for emphasis, #b6ddff for accent, #f0f6ff for soft backgrounds, #465e7b for secondary copy. Keep Horizon typography (Inter regular body, bold heading), natural line heights and generous spacing. Content width up to 1200px, 16px mobile and 24px desktop gutters, 10–24px radii. Native product grids, accessible FAQ disclosures and controls, dark footer, clear navigation. Use real offers and actual payment methods; no fabricated reviews, urgency, or membership terms. Keep cancellation readily accessible.
