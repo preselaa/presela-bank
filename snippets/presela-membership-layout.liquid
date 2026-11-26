@@ -18,19 +18,17 @@
         <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v4H3zM5 12h14v9H5zM12 8v13M12 8C4 8 5 1 9 3c2 1 3 5 3 5Zm0 0c8 0 7-7 3-5-2 1-3 5-3 5Z"/></svg></span><div><h3>Exclusive member deals</h3><p>Discover special offers for active VIP members.</p></div></div>
         <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/></svg></span><div><h3>Member-only access</h3><p>Sign in securely with your membership email.</p></div></div>
       </div>
-      <nav class="ps-member-links" aria-label="Membership resources"><a href="/pages/vip-membership">Manage membership</a><a href="/pages/cancel-membership">Cancel membership</a><a href="/pages/subscription-policy">Subscription policy</a></nav>
+      <nav class="ps-member-links" aria-label="Membership resources"><a href="/pages/vip-collection">VIP Collection</a><a href="/pages/cancel-membership">Cancel membership</a><a href="/pages/subscription-policy">Subscription policy</a></nav>
     </div>
-  {% elsif page.handle == 'vip-membership' %}
+  {% elsif page.handle == 'vip-collection' %}
     <div class="ps-member-hero ps-member-compact">
       <span class="ps-member-symbol" aria-hidden="true">✦</span>
       <p class="ps-member-kicker">YOUR PRESELA ACCOUNT</p>
-      <h1>VIP Membership</h1>
-      <p>Manage your membership and access your exclusive benefits.</p>
-      <div class="ps-member-price"><strong>$29.99</strong><span>every 28 days</span></div>
-      <p class="ps-member-renewal">Renews automatically until canceled.</p>
+      <h1>{{ page.title | escape }}</h1>
+      <p>Sign in to access your exclusive member-only collection.</p>
     </div>
     <div class="ps-member-body">
-      <h2>Manage your account</h2>
+      <h2>Access your VIP collection</h2>
       {% if customer %}
         {% if customer.tags contains 'presela-vip-active' %}<p class="ps-member-status">Active VIP membership</p>{% else %}<p>No active VIP access is associated with this account.</p>{% endif %}
         <a class="ps-member-action" href="{{ routes.account_url }}">Open customer account <span aria-hidden="true">→</span></a>
