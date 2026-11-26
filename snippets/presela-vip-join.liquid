@@ -6,12 +6,13 @@
   assign vip_variant = vip_product.selected_or_first_available_variant
   assign vip_plan = vip_variant.selling_plan_allocations.first
 %}
-{% if vip_variant.available and vip_plan != blank %}
+{% if vip_variant.available %}
   <script type="module" src="{{ 'product-form.js' | asset_url }}"></script>
   <product-form-component data-product-id="{{ vip_product.id }}" data-quantity-default="1" on:submit="/handleSubmit">
     {% form 'product', vip_product %}
       <input type="hidden" name="id" ref="variantId" value="{{ vip_variant.id }}">
-      <input type="hidden" name="selling_plan" value="{{ vip_plan.selling_plan.id }}">
+      {% if vip_plan != blank %}<input type="hidden" name="selling_plan" value="{{ vip_plan.selling_plan.id }}">{% endif %}
+      <input type="hidden" name="properties[Billing terms]" value="$29.99 every 28 days, renews until canceled">
       <input type="hidden" name="quantity" value="1">
       <button type="submit" class="ps-member-primary ps-member-join">Join &amp; Save <span aria-hidden="true">→</span></button>
       <span ref="liveRegion" class="visually-hidden" aria-live="polite"></span>

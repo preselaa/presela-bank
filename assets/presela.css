@@ -302,3 +302,5 @@
 .ps-member-hero .ps-vip-billing-status{color:#e0edff}
 .ps-vip-join-pending [hidden]{display:none!important}
 @media(max-width:749px){.ps-vip-feature-wrap{padding:12px;border-radius:16px}.ps-vip-feature-content{padding:4px 8px 12px}}
+
+.ps-cart-membership-note{font-size:13px;line-height:1.5;color:#465e7b;padding:11px 12px;border-radius:8px;background:#eef5fc;margin:0 0 8px}

@@ -252,13 +252,22 @@
   </div>
 </div>
 
+{% liquid
+  assign ps_membership_checkout_pending = false
+  for ps_line in cart.items
+    if ps_line.product.handle == 'presela-vip-membership' and ps_line.selling_plan_allocation == blank
+      assign ps_membership_checkout_pending = true
+    endif
+  endfor
+%}
 <div class="cart__ctas">
+  {% if ps_membership_checkout_pending %}<p class="ps-cart-membership-note" role="status">VIP Membership: $29.99 every 28 days, renews until canceled. Membership checkout will be available once payment setup is complete.</p>{% endif %}
   <button
     type="submit"
     id="checkout"
     class="cart__checkout-button button"
     name="checkout"
-    {% if cart == empty %}
+    {% if cart == empty or ps_membership_checkout_pending %}
       disabled
     {% endif %}
     form="cart-form"
@@ -268,7 +277,7 @@
     </span>
   </button>
 
-  {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
+  {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons and ps_membership_checkout_pending == false %}
     <div
       class="
         additional-checkout-buttons
