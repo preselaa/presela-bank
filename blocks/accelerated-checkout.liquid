@@ -1,23 +1,49 @@
 {%- doc -%}
-  Displays payment method icons instead of accelerated checkout.
+  Displays product fulfillment information and payment method icons.
   @param {string} can_add_to_cart - Whether the product can be added to cart
   @param form_obj - Product form
 {%- enddoc -%}
 {% liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign stock_verified = false
+  if variant.available and variant.inventory_management != blank and variant.inventory_quantity > 0
+    assign stock_verified = true
+  elsif variant.available and product.tags contains 'stock-confirmed'
+    assign stock_verified = true
+  endif
+  if product.tags contains 'sourcing-unverified' or product.tags contains 'not-for-sale'
+    assign stock_verified = false
+  endif
   assign payment_types = shop.enabled_payment_types
   assign planned_payment_types = false
   if payment_types.size == 0
-    assign payment_types = 'visa,master,american_express,discover,diners_club,apple_pay,google_pay' | split: ','
+    assign payment_types = 'apple_pay,google_pay,master,visa,american_express,discover,diners_club' | split: ','
     assign planned_payment_types = true
   endif
 %}
 <div class="ps-product-payment-block" {{ block.shopify_attributes }}>
+  {% if product != blank %}
+    <div class="ps-product-dispatch">
+      {% if stock_verified %}
+        <span class="ps-stock-status"><span class="ps-stock-dot" aria-hidden="true"></span>In stock</span>
+      {% elsif product.tags contains 'not-for-sale' or product.tags contains 'sourcing-unverified' %}
+        <span class="ps-stock-status"><span class="ps-stock-dot ps-stock-neutral" aria-hidden="true"></span>Catalog preview</span>
+      {% elsif variant.available == false %}
+        <span class="ps-stock-status"><span class="ps-stock-dot ps-stock-neutral" aria-hidden="true"></span>Unavailable</span>
+      {% endif %}
+      <a class="ps-dispatch-link" href="/pages/shipping-policy">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9M8 5.25l8 4.5"/></svg>
+        {% if stock_verified and product.tags contains 'ships-in-1-business-day' %}Ships out in 1 business day{% elsif stock_verified %}Dispatch in 24–72 hours{% else %}Shipping &amp; delivery{% endif %}
+      </a>
+    </div>
+  {% endif %}
+  {% if planned_payment_types %}<p class="ps-payment-method-label">Planned payment methods</p>{% endif %}
   <ul class="ps-product-payment-icons" role="list" aria-label="{% if planned_payment_types %}Planned payment methods{% else %}Accepted payment methods{% endif %}">
     {% for type in payment_types %}
       <li>{{ type | payment_type_svg_tag }}</li>
     {% endfor %}
   </ul>
-  {% if planned_payment_types %}<p class="ps-payment-availability">Planned payment options — availability not yet confirmed.</p>{% endif %}
 </div>
 {% render 'buy-buttons-styles' %}
 {% schema %}
