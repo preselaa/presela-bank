@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "footer",
   "name": "t:names.footer",
@@ -17,8 +8,9 @@
         "shop_menu": "main-menu",
         "help_menu": "footer",
         "email": "presela@atomicmail.io",
-        "address": "<p><strong>Presela LLC</strong><br>30 N Gould St<br>Sheridan, WY 82801<br>United States</p>",
-        "hours": "<p>9 AM – 5 PM, Monday – Friday</p>"
+        "address": "<p>30 N Gould St<br>Sheridan, WY 82801<br>United States</p>",
+        "hours": "<p>9 AM – 5 PM, Monday – Friday</p>",
+        "guarantee": "30-day money-back guarantee"
       }
     }
   },

@@ -20,7 +20,7 @@
       {% if protection.featured_image %}{{ protection.featured_image | image_url: width: 96 | image_tag: loading: 'lazy', widths: '48,96', alt: '' }}{% else %}
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-3Z"/><path d="m8 12 2.5 2.5L16 9"/></svg>
       {% endif %}
-      <div><strong>Shipping protection</strong><p>{{ settings.presela_protection_description | escape }}</p><span>{{ protection_variant.price | money }}</span></div>
+      <div><strong>Shipping protection · Optional</strong><p>{{ settings.presela_protection_description | escape }}</p><span>{{ protection_variant.price | money }}</span></div>
     </div>
     {% if protection_added %}
       <p class="ps-protection-added">Added · Remove from cart anytime</p>
@@ -29,7 +29,7 @@
         <input type="hidden" name="id" value="{{ protection_variant.id }}">
         <input type="hidden" name="quantity" value="1">
         <button class="button button-secondary" type="submit">Add protection</button>
-        <p data-ps-protection-error role="alert"></p>
+        <p class="ps-protection-choice">Not included unless you choose to add it.</p><p data-ps-protection-error role="alert"></p>
       </form>
     {% endif %}
   </div>

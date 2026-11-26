@@ -1,4 +1,27 @@
-<div class="ps-footer"><div class="ps-wrap ps-footer-grid"><div><a class="ps-brand" href="{{ routes.root_url }}">{% if settings.logo_inverse != blank %}{{ settings.logo_inverse | image_url: width: 320 | image_tag: widths: '160,240,320', loading: 'lazy', alt: shop.name }}{% elsif settings.logo != blank %}<span class="ps-logo">{{ settings.logo | image_url: width: 320 | image_tag: widths: '160,240,320', loading: 'lazy', alt: shop.name }}</span>{% else %}{{ shop.name | escape }}{% endif %}</a>{{ section.settings.about }}{% if section.settings.hours != blank %}<h3>Working hours</h3>{{ section.settings.hours }}{% endif %}</div><div><h3>{{ section.settings.shop_heading | escape }}</h3><ul role="list">{% for link in section.settings.shop_menu.links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}</ul></div><div><h3>{{ section.settings.help_heading | escape }}</h3><ul role="list">{% for link in section.settings.help_menu.links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}</ul></div><div><h3>Customer support email</h3>{% if section.settings.email != blank %}<a href="mailto:{{ section.settings.email | escape }}">{{ section.settings.email | escape }}</a>{% endif %}{% if section.settings.address != blank %}<h3 class="ps-address-heading">Registered business address</h3>{{ section.settings.address }}{% endif %}</div></div><div class="ps-wrap ps-footer-bottom"><span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}. All rights reserved.</span><nav aria-label="Store policies">{% if pages["subscription-policy"] != blank %}<a href="{{ pages["subscription-policy"].url }}">Subscription policy</a>{% endif %}{% for policy in shop.policies %}{% if policy.body != blank %}<a href="{{ policy.url }}">{{ policy.title | escape }}</a>{% endif %}{% endfor %}</nav>{% if section.settings.show_payments and shop.enabled_payment_types.size > 0 %}<ul role="list" class="ps-payments">{% for type in shop.enabled_payment_types %}<li>{{ type | payment_type_svg_tag }}</li>{% endfor %}</ul>{% endif %}</div></div>
+<div class="ps-footer ps-footer-compact">
+  <div class="ps-wrap">
+    <a class="ps-brand" href="{{ routes.root_url }}">{% if settings.logo_inverse != blank %}{{ settings.logo_inverse | image_url: width: 320 | image_tag: widths: '160,240,320', loading: 'lazy', alt: shop.name }}{% elsif settings.logo != blank %}<span class="ps-logo">{{ settings.logo | image_url: width: 320 | image_tag: widths: '160,240,320', loading: 'lazy', alt: shop.name }}</span>{% else %}{{ shop.name | escape }}{% endif %}</a>
+    <div class="ps-footer-info">
+      <div><h3>Working Hours</h3>{{ section.settings.hours }}</div>
+      <div><h3>Business Address</h3>{{ section.settings.address }}</div>
+      <div><h3>Customer Support Email</h3><a href="mailto:{{ section.settings.email | escape }}">{{ section.settings.email | escape }}</a><p><a href="{{ shop.refund_policy.url | default: section.settings.refund_link | default: '/pages/refund-policy' }}">{{ section.settings.guarantee | escape }}</a></p></div>
+    </div>
+    <div class="ps-footer-bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}. All rights reserved.</span>
+      <nav aria-label="Store policies">
+        <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>
+        <a href="{{ shop.terms_of_service.url | default: section.settings.terms_link | default: '/pages/terms-of-service' }}">Terms of service</a>
+        <a href="{{ shop.refund_policy.url | default: section.settings.refund_link | default: '/pages/refund-policy' }}">Refund policy</a>
+        <a href="{{ shop.shipping_policy.url | default: section.settings.shipping_link | default: '/pages/shipping-policy' }}">Shipping policy</a>
+        <a href="/pages/subscription-policy">Subscription policy</a>
+        <a href="/pages/data-sharing-opt-out">Your Privacy Choices</a>
+        <a href="/pages/cancel-membership">Cancel subscription</a>
+        <a href="/pages/business-contact-information">Contact information</a>
+      </nav>
+      {% if section.settings.show_payments and shop.enabled_payment_types.size > 0 %}<ul role="list" class="ps-payments">{% for type in shop.enabled_payment_types %}<li>{{ type | payment_type_svg_tag }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </div>
+</div>
 {% schema %}
 {
   "name": "Presela footer",
@@ -61,6 +84,27 @@
       "id": "show_payments",
       "label": "Show enabled payment icons",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee",
+      "label": "Guarantee heading",
+      "default": "30-day money-back guarantee"
+    },
+    {
+      "type": "url",
+      "id": "refund_link",
+      "label": "Refund policy fallback link"
+    },
+    {
+      "type": "url",
+      "id": "shipping_link",
+      "label": "Shipping policy fallback link"
+    },
+    {
+      "type": "url",
+      "id": "terms_link",
+      "label": "Terms of service fallback link"
     }
   ],
   "presets": [
