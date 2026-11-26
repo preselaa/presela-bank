@@ -1,0 +1,60 @@
+{% assign membership_email = 'presela@atomicmail.io' %}
+<section class="ps-member-shell">
+  {% if page.handle == 'vip-club' %}
+    <div class="ps-member-hero">
+      <span class="ps-member-symbol" aria-hidden="true">✦</span>
+      <p class="ps-member-kicker">THE PRESELA VIP CLUB</p>
+      <h1>More savings.<br>More possibilities.</h1>
+      <p>Discover exclusive offers and enjoy member-only shopping.</p>
+      <div class="ps-member-price"><strong>$29.99</strong><span>every 28 days</span></div>
+      <p class="ps-member-renewal">Optional membership. Automatically renews every 28 days until canceled.</p>
+      <a class="ps-member-primary" href="/collections/vip-collection">Shop the VIP Collection <span aria-hidden="true">→</span></a>
+      <p class="ps-member-renewal">Active members must verify their email for access.</p>
+    </div>
+    <div class="ps-member-body">
+      <h2>Membership benefits</h2>
+      <div class="ps-member-grid">
+        <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 19 19 5"/><circle cx="7.5" cy="7.5" r="3"/><circle cx="16.5" cy="16.5" r="3"/></svg></span><div><h3>50% off eligible products</h3><p>Save on eligible items in the VIP Collection.</p></div></div>
+        <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v4H3zM5 12h14v9H5zM12 8v13M12 8C4 8 5 1 9 3c2 1 3 5 3 5Zm0 0c8 0 7-7 3-5-2 1-3 5-3 5Z"/></svg></span><div><h3>Exclusive member deals</h3><p>Discover special offers for active VIP members.</p></div></div>
+        <div class="ps-member-feature"><span class="ps-member-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/></svg></span><div><h3>Member-only access</h3><p>Sign in securely with your membership email.</p></div></div>
+      </div>
+      <nav class="ps-member-links" aria-label="Membership resources"><a href="/pages/vip-membership">Manage membership</a><a href="/pages/cancel-membership">Cancel membership</a><a href="/pages/subscription-policy">Subscription policy</a></nav>
+    </div>
+  {% elsif page.handle == 'vip-membership' %}
+    <div class="ps-member-hero ps-member-compact">
+      <span class="ps-member-symbol" aria-hidden="true">✦</span>
+      <p class="ps-member-kicker">YOUR PRESELA ACCOUNT</p>
+      <h1>VIP Membership</h1>
+      <p>Manage your membership and access your exclusive benefits.</p>
+      <div class="ps-member-price"><strong>$29.99</strong><span>every 28 days</span></div>
+      <p class="ps-member-renewal">Renews automatically until canceled.</p>
+    </div>
+    <div class="ps-member-body">
+      <h2>Manage your account</h2>
+      {% if customer %}
+        {% if customer.tags contains 'presela-vip-active' %}<p class="ps-member-status">Active VIP membership</p>{% else %}<p>No active VIP access is associated with this account.</p>{% endif %}
+        <a class="ps-member-action" href="{{ routes.account_url }}">Open customer account <span aria-hidden="true">→</span></a>
+      {% else %}
+        <p>Sign in with the email you used to purchase your membership.</p>
+        <a class="ps-member-action" href="{{ routes.account_login_url }}">Verify email &amp; sign in <span aria-hidden="true">→</span></a>
+      {% endif %}
+      <a class="ps-member-action ps-member-outline" href="/collections/vip-collection">Access VIP Collection <span aria-hidden="true">→</span></a>
+      <nav class="ps-member-links" aria-label="Membership resources"><a href="/pages/cancel-membership">Cancel membership</a><a href="/pages/subscription-policy">Subscription policy</a></nav>
+    </div>
+  {% else %}
+    <div class="ps-member-hero ps-member-compact">
+      <span class="ps-member-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 12 2.5 2.5L16 9"/></svg></span>
+      <p class="ps-member-kicker">MEMBERSHIP SUPPORT</p>
+      <h1>Cancel membership</h1>
+      <p>Cancel future renewals at any time. No survey or additional purchase required.</p>
+    </div>
+    <div class="ps-member-body">
+      <h2>Cancel your VIP subscription</h2>
+      <p>Your membership renews at $29.99 every 28 days. Cancel before the next renewal to avoid another charge.</p>
+      <a class="ps-member-action" href="mailto:{{ membership_email }}?subject=Cancel%20my%20VIP%20membership&amp;body=Please%20cancel%20my%20Presela%20VIP%20membership.%0AMembership%20email%3A%20">Request cancellation by email <span aria-hidden="true">→</span></a>
+      <p class="ps-member-small">Send the email from your membership address. We will confirm cancellation. Do not include payment card details.</p>
+      <a class="ps-member-action ps-member-outline" href="{{ routes.account_url }}">Manage subscription in your account <span aria-hidden="true">→</span></a>
+      <nav class="ps-member-links" aria-label="Membership resources"><a href="/pages/subscription-policy">Subscription policy</a><a href="/pages/contact">Contact support</a></nav>
+    </div>
+  {% endif %}
+</section>

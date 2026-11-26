@@ -1,0 +1,30 @@
+{% comment %}Shopify customer authentication verifies email ownership; the active VIP tag controls collection access.{% endcomment %}
+<section class="ps-vip-entry" aria-labelledby="ps-vip-entry-title">
+  <div class="ps-vip-entry-inner">
+    <div class="ps-vip-lock" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="14" width="19" height="14" rx="3"/><path d="M10 14V9a6 6 0 0 1 12 0v5M16 20v3"/><circle cx="16" cy="19.5" r="1"/></svg></div>
+    <p class="ps-vip-entry-label">PRESELA VIP ACCESS</p>
+    <h1 id="ps-vip-entry-title">Your VIP collection awaits.</h1>
+    <p class="ps-vip-entry-description">This collection is exclusively for active VIP members. Verify your email to unlock your member-only offers.</p>
+    {% if customer %}
+      <div class="ps-vip-entry-status">
+        <strong>Active membership required</strong>
+        <p>Your account is signed in, but does not currently have active VIP access. Contact us if you believe this is an error.</p>
+      </div>
+      <a class="ps-vip-entry-button" href="/pages/contact">Contact support <span aria-hidden="true">→</span></a>
+      <a class="ps-vip-entry-secondary" href="/pages/vip-club">Explore VIP membership</a>
+      <a class="ps-vip-entry-secondary" href="{{ routes.account_url }}">Manage your account</a>
+    {% else %}
+      <form class="ps-vip-verify" action="/customer_authentication/login" method="get">
+        <input type="hidden" name="return_to" value="{{ collection.url | escape }}">
+        <label for="ps-vip-email">Membership email</label>
+        <div class="ps-vip-email-row">
+          <div class="ps-vip-email-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><input id="ps-vip-email" name="login_hint" type="email" autocomplete="email" autocapitalize="off" required placeholder="Your email address"></div>
+          <button type="submit" class="ps-vip-entry-button">Verify email <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+      <p class="ps-vip-entry-help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-3Z"/><path d="m8 12 2.5 2.5L16 9"/></svg> Secure sign-in with a one-time email code.</p>
+      <a class="ps-vip-entry-secondary" href="{{ routes.storefront_login_url }}">Continue to secure sign-in</a>
+    {% endif %}
+    <div class="ps-vip-entry-footer"><a href="/pages/vip-club">About VIP Club</a><span aria-hidden="true">·</span><a href="/pages/contact">Need help?</a></div>
+  </div>
+</section>

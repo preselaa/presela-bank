@@ -2117,5 +2117,21 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Presela shipping protection",
+    "settings": [
+      {
+        "type": "product",
+        "id": "presela_protection_product",
+        "label": "Optional shipping protection product"
+      },
+      {
+        "type": "text",
+        "id": "presela_protection_description",
+        "label": "Description",
+        "default": "Optional shipping protection. Review the product terms before adding."
+      }
+    ]
   }
 ]

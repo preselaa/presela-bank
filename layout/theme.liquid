@@ -22,6 +22,7 @@
     {{ 'presela.css' | asset_url | stylesheet_tag }}
     {%- render 'card-hover-effect-styles' -%}
     {%- render 'scripts' -%}
+    <script type="module" src="{{ 'presela-protection.js' | asset_url }}"></script>
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
 
@@ -143,7 +144,16 @@
         data-product-transition="{{ settings.transition_to_main_product }}"
         data-template="{{ template }}"
       >
-        {{ content_for_layout }}
+        {% capture ps_page_content %}{{ content_for_layout }}{% endcapture %}
+        {% if template.name == "collection" and collection.handle == "vip-collection" %}
+          {% if customer and customer.tags contains "presela-vip-active" %}
+            {{ ps_page_content }}
+          {% else %}
+            {% render "presela-vip-gate" %}
+          {% endif %}
+        {% else %}
+          {{ ps_page_content }}
+        {% endif %}
       </main>
 
       <footer>

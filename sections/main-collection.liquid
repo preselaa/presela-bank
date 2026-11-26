@@ -19,6 +19,15 @@
     );
   }
 {% endjavascript %}
+{% liquid
+  assign ps_show_collection = false
+  if collection.handle != "vip-collection"
+    assign ps_show_collection = true
+  elsif customer and customer.tags contains "presela-vip-active"
+    assign ps_show_collection = true
+  endif
+%}
+{% if ps_show_collection %}
 
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
 {% liquid
@@ -89,6 +98,7 @@
   </results-list>
 </collection-component>
 
+{% endif %}
 {% schema %}
 {
   "name": "t:names.collection_container",
