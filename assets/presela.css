@@ -290,3 +290,15 @@
 .ps-vip-product-detail summary{font-weight:700;color:#102c69;cursor:pointer}
 .ps-vip-product-detail p{margin:10px 0 0}
 @media(max-width:749px){.ps-vip-feature-wrap,.ps-vip-product-wrap{width:calc(100% - 32px);grid-template-columns:1fr;gap:22px;margin:22px auto 36px}.ps-vip-feature-content{padding:0 4px 7px}}
+
+/* Product-led VIP merchandising */
+.ps-vip-feature-wrap{background:#fff;border:1px solid #dbe5f2;box-shadow:0 5px 24px #102c6909;gap:clamp(20px,4vw,48px)}
+.ps-vip-feature-content h2{font-size:clamp(32px,4vw,44px);font-weight:750;letter-spacing:-.035em}
+.ps-vip-feature-content .ps-vip-feature-price strong{font-size:clamp(30px,4vw,42px)}
+.ps-vip-feature-ctas{max-width:none;margin:20px 0 12px}
+.ps-vip-feature-ctas .ps-member-join{background:#102c69;color:#fff!important}
+.ps-vip-feature-ctas .ps-member-join:hover,.ps-vip-product-content .ps-member-join:hover{background:#214f98}
+.ps-vip-join-pending .ps-vip-billing-status{margin:8px 0 0}
+.ps-member-hero .ps-vip-billing-status{color:#e0edff}
+.ps-vip-join-pending [hidden]{display:none!important}
+@media(max-width:749px){.ps-vip-feature-wrap{padding:12px;border-radius:16px}.ps-vip-feature-content{padding:4px 8px 12px}}

@@ -18,9 +18,9 @@
       <span ref="addToCartTextError" class="hidden ps-member-form-error" role="alert"></span>
     {% endform %}
   </product-form-component>
-{% elsif product.handle == 'presela-vip-membership' %}
-  <p class="ps-vip-billing-status" role="status">Membership enrollment opens once recurring checkout is ready.</p>
-  <a class="ps-member-primary ps-member-join" href="/pages/contact">Contact us about joining <span aria-hidden="true">→</span></a>
 {% else %}
-  <a class="ps-member-primary ps-member-join" href="/products/presela-vip-membership">Explore membership <span aria-hidden="true">→</span></a>
+  <div class="ps-vip-join-pending">
+    <button type="button" class="ps-member-primary ps-member-join" aria-describedby="ps-vip-join-status-{{ section.id }}" onclick="this.nextElementSibling.hidden=false">Join &amp; Save <span aria-hidden="true">→</span></button>
+    <p id="ps-vip-join-status-{{ section.id }}" class="ps-vip-billing-status" role="status" hidden>Membership checkout is not ready yet. Please try again later.</p>
+  </div>
 {% endif %}
