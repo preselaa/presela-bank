@@ -37,7 +37,7 @@
           <button class="ps-protection-switch" type="submit" role="switch" aria-label="Shipping protection, {{ protection_variant.price | money | escape }}" aria-checked="{{ protection_added }}"><span aria-hidden="true"></span></button>
         </form>
       </div>
-      <p class="ps-protection-note">{% if protection_added %}Added to your order · Switch off to remove{% else %}Optional · Not included unless selected{% endif %}</p>
+      
       <p data-ps-protection-error role="alert"></p>
     </div>
   {% endif %}

@@ -1,5 +1,4 @@
 {% render 'theme-drawer-styles' %}
-{% render 'buy-buttons-styles' %}
 {% liquid
   assign block_settings = block.settings
   assign product = closest.product
@@ -231,15 +230,12 @@
             add_to_cart_text: add_to_cart_text
           %}
 
-          {% if template.name == 'product' and shop.enabled_payment_types.size > 0 %}
-            <ul class="ps-product-payment-icons" role="list" aria-label="Accepted payment methods">
-              {% for type in shop.enabled_payment_types %}
-                {% unless type == 'shopify_pay' or type == 'shop_pay' %}
-                  <li>{{ type | payment_type_svg_tag }}</li>
-                {% endunless %}
-              {% endfor %}
-            </ul>
-          {% endif %}
+          {% content_for 'block',
+            type: 'accelerated-checkout',
+            id: 'accelerated-checkout',
+            can_add_to_cart: can_add_to_cart,
+            form_obj: form
+          %}
         </div>
         {%- if block_settings.gift_card_form and product.gift_card? -%}
           </span>
