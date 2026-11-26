@@ -1,6 +1,11 @@
 {% render 'theme-drawer-styles' %}
 {% liquid
   assign block_settings = block.settings
+  assign buy_buttons_key = block.id | split: '__' | last
+  assign use_presela_purchase_area = false
+  if request.page_type == 'product' and buy_buttons_key == 'buy_buttons_eYQEYi'
+    assign use_presela_purchase_area = true
+  endif
   assign product = closest.product
   if request.visual_preview_mode and product == blank
     assign product = collections.all.products.first
@@ -108,6 +113,29 @@
               >
             </div>
           {%- endif -%}
+
+          {% if use_presela_purchase_area and block_settings.show_quantity_presets and quantity_rule_soldout != true %}
+            {% assign preset_min = variant.quantity_rule.min | default: 1 %}
+            {% assign preset_step = variant.quantity_rule.increment | default: 1 %}
+            <fieldset class="ps-quantity-presets" data-presela-quantity>
+              <legend>{{ 'presela.product.choose_quantity' | t }}</legend>
+              <div class="ps-quantity-options">
+                {% for quantity in (1..3) %}
+                  {% assign offset = quantity | minus: preset_min | modulo: preset_step %}
+                  <button
+                    type="button"
+                    data-preset-quantity="{{ quantity }}"
+                    on:click="/selectQuantityPreset"
+                    aria-pressed="{% if quantity == preset_min %}true{% else %}false{% endif %}"
+                    {% if quantity < preset_min or offset != 0 or variant.quantity_rule.max != blank and quantity > variant.quantity_rule.max %}disabled{% endif %}
+                  >
+                    <strong>{{ 'presela.product.buy_quantity' | t: count: quantity }}</strong>
+                    <span>{{ 'presela.product.units' | t: count: quantity }}</span>
+                  </button>
+                {% endfor %}
+              </div>
+            </fieldset>
+          {% endif %}
 
           {% content_for 'block', type: 'quantity', id: 'quantity' %}
 
@@ -230,12 +258,14 @@
             add_to_cart_text: add_to_cart_text
           %}
 
-          {% content_for 'block',
-            type: 'accelerated-checkout',
-            id: 'accelerated-checkout',
-            can_add_to_cart: can_add_to_cart,
-            form_obj: form
-          %}
+          {% unless use_presela_purchase_area %}
+            {% content_for 'block',
+              type: 'accelerated-checkout',
+              id: 'accelerated-checkout',
+              can_add_to_cart: can_add_to_cart,
+              form_obj: form
+            %}
+          {% endunless %}
         </div>
         {%- if block_settings.gift_card_form and product.gift_card? -%}
           </span>
@@ -451,6 +481,12 @@
   "name": "t:names.product_buy_buttons",
   "tag": null,
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_quantity_presets",
+      "label": "Show Buy 1, Buy 2, and Buy 3 quantity cards",
+      "default": true
+    },
     {
       "type": "checkbox",
       "id": "stacking",

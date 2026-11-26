@@ -1,17 +1,95 @@
+{{ 'presela-product-purchase.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign stock_unverified = false
+  if product.tags contains 'not-for-sale' or product.tags contains 'sourcing-unverified'
+    assign stock_unverified = true
+  endif
+  assign preferred_types = 'apple_pay,google_pay,master,visa,american_express,discover,diners_club' | split: ','
+%}
 <div class="ps-purchase-info" {{ block.shopify_attributes }}>
-  {% if block.settings.show_payments and shop.enabled_payment_types.size > 0 %}
-    <ul class="ps-purchase-payments" role="list" aria-label="Accepted payment methods">
-      {% for type in shop.enabled_payment_types %}
-        <li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>
-      {% endfor %}
-    </ul>
-  {% elsif block.settings.show_payments and request.design_mode %}
-    <p class="ps-payment-preview-label">Payment icon preview — not active payment methods</p>
-    <ul class="ps-purchase-payments" role="list" aria-label="Example payment methods">
-      {% assign preview_types = 'apple_pay,google_pay,visa,master,american_express,diners_club,discover,jcb,paypal' | split: ',' %}
-      {% for type in preview_types %}<li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>{% endfor %}
-    </ul>
+  {% assign in_stock = false %}
+  {% if variant.available and stock_unverified == false %}
+    {% if variant.inventory_management and variant.inventory_quantity > 0 %}
+      {% assign in_stock = true %}
+    {% elsif product.tags contains 'stock-confirmed' %}
+      {% assign in_stock = true %}
+    {% endif %}
   {% endif %}
+  {% assign show_fast_dispatch = block.settings.show_dispatch %}
+  {% if product.tags contains 'ships-in-1-business-day' %}
+    {% assign show_fast_dispatch = true %}
+  {% endif %}
+  <div class="ps-purchase-status" id="ps-status-{{ section.id }}-{{ block.id }}" aria-live="polite" aria-atomic="true">
+    {% unless stock_unverified %}
+      {% if in_stock %}
+        <span class="ps-stock"><span class="ps-stock-dot" aria-hidden="true"></span>{{ block.settings.stock_label | escape }}</span>
+      {% elsif variant.available and variant.inventory_management == blank %}
+        <span class="ps-stock ps-stock--muted"><span class="ps-stock-dot" aria-hidden="true"></span>{{ block.settings.available_label | escape }}</span>
+      {% elsif variant.available %}
+        <span class="ps-stock ps-stock--muted"><span class="ps-stock-dot" aria-hidden="true"></span>{{ block.settings.backorder_label | escape }}</span>
+      {% else %}
+        <span class="ps-stock ps-stock--muted"><span class="ps-stock-dot" aria-hidden="true"></span>{{ 'products.product.sold_out' | t }}</span>
+      {% endif %}
+    {% endunless %}
+    <a href="#ps-shipping-{{ section.id }}-{{ block.id }}" class="ps-shipping-link" onclick="this.closest('.ps-purchase-info').querySelector('.ps-shipping-detail').open = true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m3 7 9 5 9-5M12 12v10M7.5 4.5l9 5v5"/></svg>
+      <span>{% if in_stock and show_fast_dispatch %}{{ block.settings.dispatch_label | escape }}{% elsif in_stock %}{{ block.settings.standard_dispatch_label | escape }}{% else %}{{ block.settings.shipping_heading | escape }}{% endif %}</span>
+    </a>
+  </div>
+  {% if block.settings.show_payments %}
+    {% assign enabled_types = shop.enabled_payment_types %}
+    {% if enabled_types.size > 0 %}
+      <ul class="ps-purchase-payments" role="list" aria-label="{{ 'presela.product.accepted_payments' | t | escape }}">
+        {% for type in preferred_types %}{% if enabled_types contains type %}<li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>{% endif %}{% endfor %}
+        {% for type in enabled_types %}{% unless preferred_types contains type %}<li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>{% endunless %}{% endfor %}
+      </ul>
+    {% elsif block.settings.show_planned_payments or request.design_mode %}
+      <div class="ps-payment-preview">
+        <p class="ps-payment-preview-label">{{ 'presela.product.planned_payments' | t }}</p>
+        <ul class="ps-purchase-payments" role="list" aria-label="{{ 'presela.product.planned_payments' | t | escape }}">
+          {% for type in preferred_types %}<li>{{ type | payment_type_svg_tag: class: 'ps-payment-logo' }}</li>{% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endif %}
+  {% if block.settings.show_reviews %}
+    <div class="ps-product-reviews">
+      <h2>{{ block.settings.reviews_heading | escape }}</h2>
+      {% if product.metafields.reviews.rating.value != blank %}
+        <p>{{ product.metafields.reviews.rating.value.rating }} / {{ product.metafields.reviews.rating.value.scale_max }} · {{ product.metafields.reviews.rating_count.value }} reviews</p>
+      {% endif %}
+      {% if block.settings.review_content != blank %}{{ block.settings.review_content }}{% else %}<p>{{ block.settings.empty_reviews | escape }}</p>{% endif %}
+    </div>
+  {% endif %}
+  <div class="ps-product-accordions">
+    <details class="ps-product-detail">
+      <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.3 9a2.8 2.8 0 0 1 5.5.5c0 2-2.8 2.2-2.8 4M12 17h.01"/></svg><span>{{ block.settings.size_heading | escape }}</span><span class="ps-detail-plus" aria-hidden="true"></span></summary>
+      <div class="ps-detail-content">
+        {% if block.settings.size_content != blank %}{{ block.settings.size_content }}{% else %}
+          {% for option in product.options_with_values %}{% assign option_name = option.name | downcase %}{% if option_name == 'size' %}{% assign sizes = option.values | join: ', ' | escape %}<p>{{ 'presela.product.available_sizes' | t: sizes: sizes }}</p>{% endif %}{% endfor %}
+          <p>{{ 'presela.product.sizing_help' | t }}</p>
+        {% endif %}
+      </div>
+    </details>
+    <details class="ps-product-detail">
+      <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.8a5 5 0 0 0-7.1 0L12 7.5l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l8.8-8.1a5 5 0 0 0 0-7.1Z"/></svg><span>{{ block.settings.guarantee_heading | escape }}</span><span class="ps-detail-plus" aria-hidden="true"></span></summary>
+      <div class="ps-detail-content">
+        {{ block.settings.guarantee_content }}
+        {% assign refund_url = shop.refund_policy.url | default: pages['refund-policy'].url %}
+        {% if refund_url != blank %}<p><a href="{{ refund_url }}">{{ 'presela.product.refund_policy' | t }}</a></p>{% endif %}
+      </div>
+    </details>
+    <details class="ps-product-detail ps-shipping-detail" id="ps-shipping-{{ section.id }}-{{ block.id }}">
+      <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h13v13H2zM15 9h4l3 4v4h-7M15 13h7"/><circle cx="6" cy="18" r="2.5" fill="white"/><circle cx="18" cy="18" r="2.5" fill="white"/></svg><span>{{ block.settings.shipping_heading | escape }}</span><span class="ps-detail-plus" aria-hidden="true"></span></summary>
+      <div class="ps-detail-content">
+        {{ block.settings.shipping_content }}
+        {% assign shipping_url = shop.shipping_policy.url | default: pages['shipping-policy'].url %}
+        {% if shipping_url != blank %}<p><a href="{{ shipping_url }}">{{ 'presela.product.shipping_policy' | t }}</a></p>{% endif %}
+      </div>
+    </details>
+  </div>
   {% if block.settings.show_vip %}
     <div class="ps-purchase-vip">
       <h2><span aria-hidden="true"></span>{{ block.settings.heading | escape }}</h2>
@@ -22,11 +100,6 @@
   {% endif %}
 </div>
 {% stylesheet %}
-.ps-purchase-info{width:100%;min-width:0}
-.ps-purchase-payments{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;list-style:none;margin:0 0 15px;padding:0}
-.ps-purchase-payments li{display:flex;align-items:center}
-.ps-purchase-payments .ps-payment-logo{width:42px;height:27px;display:block}
-.ps-payment-preview-label{font-size:12px;color:#465e7b;text-align:center;margin:0 0 8px}
 .ps-purchase-vip{border-top:1px solid #d9e3f0;padding-top:16px;color:#465e7b;font-size:14px;line-height:1.7}
 .ps-purchase-vip h2{display:flex;align-items:baseline;gap:8px;color:#102c69;font-size:12px;letter-spacing:.12em;line-height:1.5;text-transform:uppercase;font-weight:700;margin:0 0 12px}
 .ps-purchase-vip h2 span{width:7px;height:7px;background:#214f98;flex:none;align-self:center}
@@ -37,5 +110,27 @@
 .ps-purchase-vip a:focus-visible{outline:2px solid #214f98;outline-offset:3px}
 {% endstylesheet %}
 {% schema %}
-{"name":"Presela purchase info","tag":null,"settings":[{"type":"checkbox","id":"show_payments","label":"Show enabled payment methods","default":true},{"type":"checkbox","id":"show_vip","label":"Show VIP membership information","default":true},{"type":"text","id":"heading","label":"Heading","default":"Presela VIP Club · Billing explained"},{"type":"richtext","id":"billing","label":"Billing disclosure","default":"<p>Presela VIP Club is an <strong>optional membership</strong> priced at <strong>$29.99 USD every 28 days</strong>. If you choose to enroll, you are charged at enrollment and every 28 days thereafter until canceled. Buying a product alone does not enroll you in the membership.</p>"},{"type":"richtext","id":"benefits","label":"Membership benefits","default":"<p>Active members receive <strong>50% off eligible VIP Collection products</strong> and access to exclusive member offers. Product eligibility and availability may vary.</p>"}],"presets":[{"name":"Presela purchase info"}]}
+{"name":"Presela purchase info","tag":null,"settings":[
+{"type":"text","id":"stock_label","label":"In-stock label","default":"In stock"},
+{"type":"text","id":"backorder_label","label":"Backorder label","default":"Available on backorder"},
+{"type":"text","id":"available_label","label":"Untracked inventory label","default":"Available to order"},
+{"type":"checkbox","id":"show_dispatch","label":"Show one-business-day dispatch for in-stock products","default":false},
+{"type":"text","id":"dispatch_label","label":"Fast dispatch message","default":"Ships out in 1 business day"},
+{"type":"text","id":"standard_dispatch_label","label":"Standard dispatch message","default":"Dispatch in 24–72 hours"},
+{"type":"checkbox","id":"show_payments","label":"Show enabled payment methods","default":true},
+{"type":"checkbox","id":"show_planned_payments","label":"Show labeled planned payment icons if none are enabled","default":true},
+{"type":"checkbox","id":"show_reviews","label":"Show reviews","default":true},
+{"type":"text","id":"reviews_heading","label":"Reviews heading","default":"Reviews"},
+{"type":"text","id":"empty_reviews","label":"Empty reviews message","default":"No written reviews to display."},
+{"type":"richtext","id":"review_content","label":"Actual written reviews"},
+{"type":"text","id":"size_heading","label":"Size guide heading","default":"Size Guide"},
+{"type":"richtext","id":"size_content","label":"Size guide content"},
+{"type":"text","id":"guarantee_heading","label":"Guarantee heading","default":"Our Guarantee"},
+{"type":"richtext","id":"guarantee_content","label":"Guarantee content","default":"<p>We offer a 30-day money-back guarantee from delivery. Contact us with your order number for return and refund instructions.</p>"},
+{"type":"text","id":"shipping_heading","label":"Shipping heading","default":"Shipping & Delivery"},
+{"type":"richtext","id":"shipping_content","label":"Shipping content","default":"<p>We aim to dispatch orders within 24–72 hours after payment confirmation. Estimated delivery is 6–15 days after dispatch, depending on your location. We send tracking details when your order ships and tracking is available.</p>"},
+{"type":"checkbox","id":"show_vip","label":"Show VIP membership information","default":true},
+{"type":"text","id":"heading","label":"Heading","default":"Presela VIP Club · Billing explained"},
+{"type":"richtext","id":"billing","label":"Billing disclosure","default":"<p>Presela VIP Club is an <strong>optional membership</strong> priced at <strong>$29.99 USD every 28 days</strong>. If you choose to enroll, you are charged at enrollment and every 28 days thereafter until canceled. Buying a product alone does not enroll you in the membership.</p>"},
+{"type":"richtext","id":"benefits","label":"Membership benefits","default":"<p>Active members receive <strong>50% off eligible VIP Collection products</strong> and access to exclusive member offers. Product eligibility and availability may vary.</p>"}],"presets":[{"name":"Presela purchase info"}]}
 {% endschema %}

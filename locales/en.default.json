@@ -8,6 +8,22 @@
  * ------------------------------------------------------------
  */
 {
+  "presela": {
+    "product": {
+      "choose_quantity": "Choose your quantity",
+      "buy_quantity": "Buy {{ count }}",
+      "units": {
+        "one": "{{ count }} unit",
+        "other": "{{ count }} units"
+      },
+      "accepted_payments": "Accepted payment methods",
+      "planned_payments": "Planned payment methods",
+      "refund_policy": "View refund policy",
+      "shipping_policy": "View shipping policy",
+      "available_sizes": "Available sizes: {{ sizes }}.",
+      "sizing_help": "Contact us for product-specific measurements or sizing help before ordering."
+    }
+  },
   "accessibility": {
     "account": "Account",
     "active_filters": "Active filters:",

@@ -88,6 +88,18 @@ export class QuantitySelectorComponent extends Component {
     this.refs.quantityInput.value = value;
   }
 
+  /** @param {number} quantity */
+  selectPreset(quantity) {
+    const { min, max, cartQuantity, step } = this.getCurrentValues();
+    if (!Number.isInteger(quantity) || quantity < min || (quantity - min) % step !== 0) return;
+    if (max !== null && cartQuantity + quantity > max) return;
+
+    this.setValue(String(quantity));
+    this.onQuantityChange();
+    this.updateButtonStates();
+  }
+
+
   /**
    * Updates min/max/step constraints and snaps value to valid increment
    * @param {string} min - Minimum value
@@ -163,6 +175,16 @@ export class QuantitySelectorComponent extends Component {
     const { minusButton, plusButton } = this.refs;
     const { min, value } = this.getCurrentValues();
     const effectiveMax = this.getEffectiveMax();
+
+    const presets = this.closest('.product-form-buttons')?.querySelector('[data-presela-quantity]');
+    if (presets) {
+      const { max, cartQuantity, step } = this.getCurrentValues();
+      for (const button of presets.querySelectorAll('button[data-preset-quantity]')) {
+        const quantity = Number(button.getAttribute('data-preset-quantity'));
+        button.disabled = quantity < min || (quantity - min) % step !== 0 || (max !== null && cartQuantity + quantity > max);
+        button.setAttribute('aria-pressed', String(quantity === value));
+      }
+    }
 
     // Only manage buttons that weren't server-disabled
     if (!this.serverDisabledMinus) {

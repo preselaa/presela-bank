@@ -768,6 +768,14 @@ class ProductFormComponent extends Component {
     }
   }
 
+  /** @param {Event} event */
+  selectQuantityPreset(event) {
+    if (!(event.target instanceof Element)) return;
+    const quantity = Number(event.target.closest('[data-preset-quantity]')?.getAttribute('data-preset-quantity'));
+    this.refs.quantitySelector?.selectPreset?.(quantity);
+  }
+
+
   /**
    * @param {ProductSelectEvent} event
    */
@@ -796,6 +804,10 @@ class ProductFormComponent extends Component {
       } else if (productId && productId !== this.dataset.productId) {
         return;
       }
+
+      const currentStatus = this.closest('.product-details')?.querySelector('.ps-purchase-status');
+      const nextStatus = currentStatus?.id && html.getElementById(currentStatus.id);
+      if (currentStatus && nextStatus) morph(currentStatus, nextStatus);
 
       const { variantId } = this.refs;
       variantId.value = resource?.id ?? '';
