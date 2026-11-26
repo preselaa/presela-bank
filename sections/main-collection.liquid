@@ -27,7 +27,9 @@
     assign ps_show_collection = true
   endif
 %}
-{% if ps_show_collection %}
+{% if collection.handle == "vip-collection" %}
+  {% render 'presela-exclusive-grid' %}
+{% elsif ps_show_collection %}
 
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
 {% liquid
@@ -69,6 +71,7 @@
       {% paginate collection.products by products_per_page %}
         {% capture children %}
           {% for product in collection.products %}
+            {% if product.tags contains 'presela-vip-only' or product.tags contains 'vip-only' %}{% continue %}{% endif %}
             <li
               id="{{ section.id }}-{{ product.id }}"
               class="product-grid__item product-grid__item--{{ forloop.index0 }}"

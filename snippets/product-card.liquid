@@ -10,6 +10,7 @@
   @param {string} [product_view_context] - The context in which the product card is being rendered. Used for standard events.
 {%- enddoc -%}
 
+{% unless product.tags contains 'presela-vip-only' or product.tags contains 'vip-only' %}
 {% assign block_settings = block.settings %}
 
 {% if request.visual_preview_mode %}
@@ -117,3 +118,4 @@
 </product-card>
 
 {% render 'product-card-styles' %}
+{% endunless %}

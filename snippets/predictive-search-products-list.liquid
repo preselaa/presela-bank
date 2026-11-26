@@ -49,6 +49,7 @@
           {% for _id in order_ids %}
             {% assign int_id = _id | times: 1 %}
             {% assign product = products | find: 'id', int_id %}
+            {% if product.tags contains 'presela-vip-only' or product.tags contains 'vip-only' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -65,6 +66,7 @@
           {% endfor %}
         {% else %}
           {% for product in products limit: limit %}
+            {% if product.tags contains 'presela-vip-only' or product.tags contains 'vip-only' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -93,6 +95,7 @@
         assign limit = limit | default: 8
       %}
       {% for product in products limit: limit %}
+            {% if product.tags contains 'presela-vip-only' or product.tags contains 'vip-only' %}{% continue %}{% endif %}
         <li
           class="predictive-search-results__card predictive-search-results__card--product"
           ref="resultsItems[]"

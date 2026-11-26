@@ -149,7 +149,9 @@
         data-template="{{ template }}"
       >
         {% capture ps_page_content %}{{ content_for_layout }}{% endcapture %}
-        {% if template.name == "product" and product.handle == "presela-vip-membership" %}
+        {% if template.name == 'product' and product.tags contains 'presela-vip-only' or template.name == 'product' and product.tags contains 'vip-only' %}
+          <div class="ps-exclusive-route"><h1>VIP-only collection</h1><p>Exclusive designs are available through the VIP Collection.</p><a href="/collections/vip-collection">Go to VIP Collection</a></div>
+        {% elsif template.name == "product" and product.handle == "presela-vip-membership" %}
           {% render "presela-vip-product" %}
         {% elsif template.name == "collection" and collection.handle == "vip-collection" %}
           {% if customer and customer.tags contains "presela-vip-active" %}

@@ -1,0 +1,37 @@
+{% if customer and customer.tags contains 'presela-vip-active' and collection.handle == 'vip-collection' %}
+  <section class="ps-wrap ps-exclusive-shop" aria-labelledby="ps-exclusive-heading">
+    <div class="ps-exclusive-heading">
+      <h2 id="ps-exclusive-heading">VIP-only products</h2>
+      <p>Exclusive Presela designs for active VIP members.</p>
+    </div>
+    {% assign exclusive_count = 0 %}
+    <div class="ps-exclusive-grid">
+      {% for item in collection.products %}
+        {% if item.tags contains 'presela-vip-only' or item.tags contains 'vip-only' %}
+          {% assign exclusive_count = exclusive_count | plus: 1 %}
+          <article class="ps-exclusive-card">
+            <div class="ps-exclusive-media">
+              {% if item.featured_image %}
+                {{ item.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '240,360,540,720', sizes: '(min-width: 750px) 25vw, 50vw', alt: item.featured_image.alt }}
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag }}
+              {% endif %}
+              <span class="ps-exclusive-badge"><span aria-hidden="true">✦</span> VIP ONLY</span>
+            </div>
+            <div class="ps-exclusive-info">
+              <h3>{{ item.title | escape }}</h3>
+              {% if item.tags contains 'design-development' or item.tags contains 'sourcing-pending' %}
+                <p class="ps-exclusive-status">Design preview · Not available for purchase</p>
+              {% else %}
+                <p class="ps-exclusive-status">Member-exclusive design</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if exclusive_count == 0 %}
+      <p class="ps-exclusive-empty">New exclusive designs are in development. Check back for future releases.</p>
+    {% endif %}
+  </section>
+{% endif %}

@@ -55,6 +55,7 @@
     <div class="ps-vip-section-head" id="ps-vip-shop"><h2>See what you save</h2><p>Shop regular products at your exclusive member rate.</p></div>
     <div class="ps-vip-featured">
       {% for item in collections.all.products limit: 50 %}
+        {% if item.tags contains 'presela-vip-only' or item.tags contains 'vip-only' %}{% continue %}{% endif %}
         {% if item.available and item.featured_image and item.handle != "shipping-protection" and item.handle != "presela-vip-membership" %}
           <article class="ps-vip-product">
             {{ item.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: item.title }}
