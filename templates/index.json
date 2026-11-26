@@ -11,7 +11,13 @@
   "sections": {
     "hero_jVaWmY": {
       "type": "presela-hero",
-      "settings": {}
+      "settings": {
+        "eyebrow": "",
+        "image": "shopify://shop_images/presela-editorial-quarter-zip.png",
+        "heading": "Everyday, well dressed.",
+        "copy": "<p>Easy layers, relaxed fits, and essentials you’ll reach for on repeat.</p>",
+        "primary_label": "Shop the collection"
+      }
     },
     "product_list_fa6P9H": {
       "type": "product-list",
@@ -52,7 +58,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "text": "<h3>Everyday essentials</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -195,7 +201,7 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 28,
-        "padding-block-start": 48,
+        "padding-block-start": 36,
         "padding-block-end": 48
       }
     },

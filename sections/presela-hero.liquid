@@ -1,8 +1,51 @@
-<section class="ps-wrap ps-hero"><div class="ps-hero-copy"><p class="ps-kicker">{{ section.settings.eyebrow | escape }}</p><h1>{{ section.settings.heading | escape }}</h1>{{ section.settings.copy }}<div class="ps-actions"><a class="button ps-light" href="{{ section.settings.primary_link | default: routes.all_products_collection_url }}">{{ section.settings.primary_label | escape }}</a><a class="ps-link" href="{{ section.settings.secondary_link | default: '/pages/vip-club' }}">{{ section.settings.secondary_label | escape }} <span aria-hidden="true">→</span></a></div></div>{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1200 | image_tag: widths: '400,600,900,1200', sizes: '(min-width: 750px) 45vw, 100vw', class: 'ps-hero-image', loading: 'eager' }}{% else %}<div class="ps-art" aria-hidden="true"><svg viewBox="0 0 300 300" fill="none"><circle cx="150" cy="150" r="126" stroke="currentColor" opacity=".24"/><circle cx="150" cy="150" r="98" stroke="currentColor" opacity=".4"/><path d="M150 40 Q168 132 260 150 Q168 168 150 260 Q132 168 40 150 Q132 132 150 40Z" fill="currentColor"/><path d="M239 40 Q245 68 273 74 Q245 80 239 108 Q233 80 205 74 Q233 68 239 40Z" fill="currentColor" opacity=".65"/></svg></div>{% endif %}</section>
+{% liquid
+  assign shop_url = section.settings.primary_link | default: routes.all_products_collection_url
+  assign vip_url = section.settings.secondary_link | default: pages['vip-club'].url
+%}
+
+<section class="ps-wrap ps-hero ps-editorial" aria-labelledby="presela-hero-{{ section.id }}">
+  <div class="ps-editorial-copy">
+    {% if section.settings.eyebrow != blank %}<p class="ps-editorial-eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    <h1 id="presela-hero-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
+    {{ section.settings.copy }}
+    <div class="ps-editorial-actions">
+      <a class="button ps-editorial-button" href="{{ shop_url }}">{{ section.settings.primary_label | escape }} <span aria-hidden="true">→</span></a>
+      {% if vip_url != blank %}<a class="ps-editorial-secondary" href="{{ vip_url }}">{{ section.settings.secondary_label | escape }}</a>{% endif %}
+    </div>
+  </div>
+  {% if section.settings.image != blank %}
+    {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '420,620,850,1100,1400', sizes: '(min-width: 1250px) 660px, (min-width: 750px) 52vw, calc(100vw - 32px)', class: 'ps-editorial-image', loading: 'eager', fetchpriority: 'high' }}
+  {% endif %}
+</section>
+
+<nav class="ps-wrap ps-shopping-services" aria-label="{{ section.settings.services_label | escape }}">
+  {% if section.settings.shipping_label != blank and pages['shipping-policy'].url != blank %}
+    <a href="{{ pages['shipping-policy'].url }}">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h12v12H3zM15 9h3l3 4v4h-6"/><circle cx="7" cy="18" r="2" fill="white"/><circle cx="18" cy="18" r="2" fill="white"/></svg>
+      <span>{{ section.settings.shipping_label | escape }}</span>
+    </a>
+  {% endif %}
+  {% if section.settings.refund_label != blank and pages['refund-policy'].url != blank %}
+    <a href="{{ pages['refund-policy'].url }}">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9a8 8 0 1 1 1 9M5 4v5h5"/><path d="m10 12.5 2 2 4-4"/></svg>
+      <span>{{ section.settings.refund_label | escape }}</span>
+    </a>
+  {% endif %}
+  {% if section.settings.tracking_label != blank and pages['track-order'].url != blank %}
+    <a href="{{ pages['track-order'].url }}">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 10c0 4.5-7 10-7 10S5 14.5 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <span>{{ section.settings.tracking_label | escape }}</span>
+    </a>
+  {% endif %}
+</nav>
 {% schema %}
 {
   "name": "Presela hero",
   "settings": [
+    { "type": "text", "id": "services_label", "label": "Services navigation label", "default": "Shopping support" },
+    { "type": "text", "id": "shipping_label", "label": "Shipping policy link", "default": "Ships within 72 hours" },
+    { "type": "text", "id": "refund_label", "label": "Refund policy link", "default": "30-day returns" },
+    { "type": "text", "id": "tracking_label", "label": "Order tracking link", "default": "Track your order" },
     {
       "type": "text",
       "id": "eyebrow",

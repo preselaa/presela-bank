@@ -20,6 +20,7 @@
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
     {{ 'presela.css' | asset_url | stylesheet_tag }}
+    {{ 'presela-editorial.css' | asset_url | stylesheet_tag }}
     {%- render 'card-hover-effect-styles' -%}
     {%- render 'scripts' -%}
     <script type="module" src="{{ 'presela-protection.js' | asset_url }}"></script>
