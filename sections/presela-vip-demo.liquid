@@ -13,7 +13,7 @@
     <h1 id="ps-reviewer-title-{{ section.id }}">{{ page.title | escape }}</h1>
     {{ section.settings.intro }}
     {% unless customer %}
-      <a class="button ps-reviewer-primary" href="{{ routes.storefront_login_url }}">{{ section.settings.sign_in | escape }}</a>
+      <a class="button ps-reviewer-primary" href="{{ routes.storefront_login_url | escape }}">{{ section.settings.sign_in | escape }}</a>
     {% endunless %}
   </header>
 
