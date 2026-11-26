@@ -2,9 +2,15 @@
 {% liquid
   assign product = closest.product
   assign variant = product.selected_or_first_available_variant
+  assign stock_confirmed = false
+  if product.tags contains 'stock-confirmed'
+    assign stock_confirmed = true
+  endif
   assign stock_unverified = false
   if product.tags contains 'not-for-sale' or product.tags contains 'sourcing-unverified'
-    assign stock_unverified = true
+    unless stock_confirmed
+      assign stock_unverified = true
+    endunless
   endif
   assign preferred_types = 'apple_pay,google_pay,master,visa,american_express,discover,diners_club' | split: ','
 %}
@@ -13,7 +19,7 @@
   {% if variant.available and stock_unverified == false %}
     {% if variant.inventory_management and variant.inventory_quantity > 0 %}
       {% assign in_stock = true %}
-    {% elsif product.tags contains 'stock-confirmed' %}
+    {% elsif variant.inventory_management == blank and stock_confirmed %}
       {% assign in_stock = true %}
     {% endif %}
   {% endif %}
