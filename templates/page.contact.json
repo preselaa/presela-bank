@@ -12,7 +12,9 @@
     "contact": {
       "type": "presela-contact",
       "settings": {
-        "address": "<p><strong>Presela LLC</strong><br>30 N Gould St<br>Sheridan, WY 82801<br>United States</p>"
+        "address": "<p><strong>Presela LLC</strong><br>30 N Gould St<br>Sheridan, WY 82801<br>United States</p>",
+        "hours": "<p>Every day<br>8 AM – midnight Pacific Time</p>",
+        "phone": "+1 (888) 837-1163"
       }
     }
   },
