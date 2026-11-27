@@ -4,7 +4,7 @@
     <div class="ps-footer-info">
       <div><h3>Working Hours</h3>{{ section.settings.hours }}</div>
       <div><h3>Business Address</h3>{{ section.settings.address }}</div>
-      <div><h3>Customer Support Email</h3><a href="mailto:{{ section.settings.email | escape }}">{{ section.settings.email | escape }}</a><p><a href="{{ shop.refund_policy.url | default: section.settings.refund_link | default: '/pages/refund-policy' }}">{{ section.settings.guarantee | escape }}</a></p></div>
+      <div><h3>Customer Support Email</h3><a href="mailto:{{ shop.email | default: section.settings.email | escape }}">{{ shop.email | default: section.settings.email | escape }}</a><p><a href="{{ shop.refund_policy.url | default: section.settings.refund_link | default: '/pages/refund-policy' }}">{{ section.settings.guarantee | escape }}</a></p></div>
     </div>
     <div class="ps-footer-bottom">
       <span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}. All rights reserved.</span>
