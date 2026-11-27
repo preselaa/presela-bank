@@ -14,8 +14,8 @@
       "settings": {
         "eyebrow": "",
         "image": "shopify://shop_images/presela-editorial-quarter-zip.png",
-        "heading": "Everyday, well dressed.",
-        "copy": "<p>Easy layers, relaxed fits, and essentials you’ll reach for on repeat.</p>",
+        "heading": "Wear it your way.",
+        "copy": "<p>Relaxed silhouettes, everyday layers and pieces to make your own.</p>",
         "primary_label": "Shop the collection"
       }
     },
@@ -58,7 +58,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>Everyday essentials</h3>",
+                "text": "<h3>Find your next fit</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -188,7 +188,7 @@
       "name": "t:names.featured_collection",
       "settings": {
         "collection": "all",
-        "layout_type": "grid",
+        "layout_type": "carousel",
         "carousel_on_mobile": false,
         "max_products": 8,
         "columns": 4,
@@ -248,11 +248,76 @@
     "presela_vip_feature": {
       "type": "presela-vip-feature",
       "settings": {}
+    },
+    "presela_design_edit": {
+      "type": "presela-design-edit",
+      "settings": {},
+      "blocks": {
+        "d1": {
+          "type": "design",
+          "settings": {
+            "title": "Midnight Rally Quarter-Zip"
+          }
+        },
+        "d2": {
+          "type": "design",
+          "settings": {
+            "title": "Snowline Sherpa Pullover"
+          }
+        },
+        "d3": {
+          "type": "design",
+          "settings": {
+            "title": "Luna Court Skort"
+          }
+        },
+        "d4": {
+          "type": "design",
+          "settings": {
+            "title": "Chrome Signal Hoodie"
+          }
+        },
+        "d5": {
+          "type": "design",
+          "settings": {
+            "title": "Riviera Drawstring Shorts"
+          }
+        },
+        "d6": {
+          "type": "design",
+          "settings": {
+            "title": "Off-Duty Fleece Joggers"
+          }
+        },
+        "d7": {
+          "type": "design",
+          "settings": {
+            "title": "Angel Number Tee"
+          }
+        },
+        "d8": {
+          "type": "design",
+          "settings": {
+            "title": "Afterglow Oversized Tee"
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5",
+        "d6",
+        "d7",
+        "d8"
+      ]
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
+    "presela_design_edit",
     "presela_vip_feature",
     "presela_faq"
   ]

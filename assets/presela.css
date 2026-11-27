@@ -348,3 +348,11 @@
 .ps-exclusive-route{max-width:720px;margin:35px auto;padding:28px;text-align:center}
 .ps-exclusive-route a{display:inline-block;background:#102c69;color:#fff;padding:12px 20px;border-radius:9px;text-decoration:none;font-weight:700}
 @media(max-width:749px){.ps-exclusive-shop{padding-inline:16px}.ps-exclusive-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ps-exclusive-info{padding:11px}.ps-exclusive-info h3{font-size:14px}}
+
+/* Keep mobile form text at Safari's focus-zoom threshold.
+   Preserve the normal viewport and user-controlled pinch zoom. */
+@media screen and (max-width: 749px) {
+  body :is(input:not([type]), input[type="text"], input[type="email"], input[type="tel"], input[type="search"], input[type="password"], input[type="number"], input[type="url"], input[type="date"], select, textarea) {
+    font-size: max(16px, 1em) !important;
+  }
+}

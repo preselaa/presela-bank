@@ -1,0 +1,27 @@
+{% assign has_designs = false %}
+{% for block in section.blocks %}
+  {% if block.settings.image != blank %}{% assign has_designs = true %}{% endif %}
+{% endfor %}
+{% if has_designs or request.design_mode %}
+<section class="ps-design-edit" data-ps-design-edit aria-labelledby="ps-edit-{{ section.id }}">
+  <div class="ps-design-edit__header">
+    <div><h2 id="ps-edit-{{ section.id }}">{{ section.settings.heading | escape }}</h2><p>{{ section.settings.copy | escape }}</p></div>
+    <div class="ps-design-edit__controls"><button type="button" data-ps-prev aria-label="Previous designs">←</button><button type="button" data-ps-next aria-label="Next designs">→</button></div>
+  </div>
+  <ul role="list" class="ps-design-edit__track" data-ps-track>
+    {% for block in section.blocks %}
+      {% if block.settings.image != blank or request.design_mode %}
+      <li class="ps-design-edit__card" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 900 | image_tag: widths: '320,480,640,900', sizes: '(min-width: 750px) 25vw, 76vw', loading: 'lazy', alt: block.settings.title }}
+        {% else %}{{ 'product-1' | placeholder_svg_tag }}{% endif %}
+        <h3>{{ block.settings.title | escape }}</h3><p>{{ section.settings.label | escape }}</p>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% schema %}
+{"name":"Presela design edit","settings":[{"type":"text","id":"heading","label":"Heading","default":"The design studio"},{"type":"text","id":"copy","label":"Description","default":"A first look at original design concepts in development."},{"type":"text","id":"label","label":"Image disclosure","default":"Design concept · Not yet available"}],"blocks":[{"type":"design","name":"Design","settings":[{"type":"image_picker","id":"image","label":"Design image"},{"type":"text","id":"title","label":"Design name","default":"New design"}]}],"max_blocks":12,"presets":[{"name":"Presela design edit"}]}
+{% endschema %}
