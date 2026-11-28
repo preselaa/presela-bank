@@ -28,6 +28,32 @@
   </div>
 
   {% capture list_items %}
+    {% if section.settings.show_presela_concepts and section.settings.collection != blank and section.settings.collection.products_count > 0 %}
+      {% assign concept_uid = section.id | append: '-fallen' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'fallen', title: 'Fallen Angel Hoodie', palette: 'Washed black / silver wing embroidery', uid: concept_uid %}</div>
+<!--@list/split-->
+{% assign concept_uid = section.id | append: '-xray' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'xray', title: 'X-Ray Hoodie', palette: 'Graphite / bone white', uid: concept_uid %}</div>
+<!--@list/split-->
+{% assign concept_uid = section.id | append: '-orbit' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'orbit', title: 'Out of Orbit Denim', palette: 'Ink denim / metallic thread', uid: concept_uid %}</div>
+<!--@list/split-->
+{% assign concept_uid = section.id | append: '-liquid' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'liquid', title: 'Liquid Metal Hoodie', palette: 'Black / liquid chrome', uid: concept_uid %}</div>
+<!--@list/split-->
+{% assign concept_uid = section.id | append: '-cherry' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'cherry', title: 'Wild Cherry Zip-Up', palette: 'Rose / espresso', uid: concept_uid %}</div>
+<!--@list/split-->
+{% assign concept_uid = section.id | append: '-butterfly' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'butterfly', title: 'Butterfly Effect Tee', palette: 'Faded black / violet chrome', uid: concept_uid %}</div>
+<!--@list/split-->
+{% assign concept_uid = section.id | append: '-double' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'double', title: 'Double Vision Sweatpants', palette: 'Ash / charcoal', uid: concept_uid %}</div>
+<!--@list/split-->
+{% assign concept_uid = section.id | append: '-chaos' %}
+<div class="resource-list__item ps-collection-concept">{% render 'presela-collection-concept', concept: 'chaos', title: 'Beautiful Chaos Hoodie', palette: 'Black / burgundy', uid: concept_uid %}</div>
+<!--@list/split-->
+    {% endif %}
     {% if section.settings.collection != blank and shop.products_count != 0 %}
       {% paginate section.settings.collection.products by max_items %}
         {% for product in section.settings.collection.products limit: max_items %}
@@ -71,7 +97,7 @@
     list_items: list_items,
     list_items_array: list_items_array,
     settings: section.settings,
-    slide_count: max_items,
+    slide_count: list_items_array.size,
     content_type: 'products',
     test_id: 'resource-list-grid'
   %}
@@ -84,6 +110,9 @@
   </div>
 </div>
 
+{% stylesheet %}
+.ps-collection-concept__media{aspect-ratio:4/5;display:grid;place-items:center;background:#f1f2f4;border-radius:8px;overflow:hidden}.ps-collection-concept__media svg{width:94%;height:94%;max-height:420px}.ps-collection-concept__details{padding-top:8px}.ps-collection-concept__details h3{font-size:var(--font-size--body-md,1rem);font-weight:500;margin:0 0 4px;line-height:1.4}.ps-collection-concept__palette{font-size:12px;color:#48576c;margin:0 0 4px}.ps-collection-concept__status{font-size:12px;color:#64748b;margin:0;line-height:1.4}
+{% endstylesheet %}
 {% schema %}
 {
   "name": "t:names.product_list",
@@ -100,7 +129,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   },
   "settings": [
     {
@@ -344,6 +376,12 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_presela_concepts",
+      "label": "Show unavailable Presela design previews",
+      "default": false
     }
   ],
   "presets": [
@@ -434,7 +472,10 @@
               }
             }
           },
-          "block_order": ["product_list_text", "product_list_button"]
+          "block_order": [
+            "product_list_text",
+            "product_list_button"
+          ]
         },
         "static-product-card": {
           "type": "_product-card",
@@ -512,7 +553,11 @@
               }
             }
           },
-          "block_order": ["product-card-gallery", "product_title", "price"]
+          "block_order": [
+            "product-card-gallery",
+            "product_title",
+            "price"
+          ]
         }
       },
       "block_order": []
@@ -604,7 +649,10 @@
               }
             }
           },
-          "block_order": ["product_list_text", "product_list_button"]
+          "block_order": [
+            "product_list_text",
+            "product_list_button"
+          ]
         },
         "static-product-card": {
           "type": "_product-card",
@@ -682,7 +730,11 @@
               }
             }
           },
-          "block_order": ["product-card-gallery", "product_title", "price"]
+          "block_order": [
+            "product-card-gallery",
+            "product_title",
+            "price"
+          ]
         }
       },
       "block_order": []
@@ -775,7 +827,10 @@
               }
             }
           },
-          "block_order": ["product_list_text", "product_list_button"]
+          "block_order": [
+            "product_list_text",
+            "product_list_button"
+          ]
         },
         "static-product-card": {
           "type": "_product-card",
@@ -853,7 +908,11 @@
               }
             }
           },
-          "block_order": ["product-card-gallery", "product_title", "price"]
+          "block_order": [
+            "product-card-gallery",
+            "product_title",
+            "price"
+          ]
         }
       },
       "block_order": []
