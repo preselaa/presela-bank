@@ -312,12 +312,105 @@
         "d7",
         "d8"
       ]
+    },
+    "presela_viral_concepts": {
+      "type": "presela-design-edit",
+      "settings": {
+        "heading": "PRESELA STUDIO / 001",
+        "copy": "Eight original streetwear explorations. Illustrated concepts, not finished merchandise.",
+        "label": "Concept illustration · Not available for purchase"
+      },
+      "blocks": {
+        "fallen": {
+          "type": "design",
+          "settings": {
+            "concept": "fallen",
+            "title": "Fallen Angel Hoodie",
+            "palette": "Washed black / silver wing embroidery",
+            "description": "Hooded silhouette, feathered wings and distressed seams."
+          }
+        },
+        "xray": {
+          "type": "design",
+          "settings": {
+            "concept": "xray",
+            "title": "X-Ray Hoodie",
+            "palette": "Graphite / bone white",
+            "description": "Anatomical ribs and sleeve graphics, with proposed luminous accents."
+          }
+        },
+        "orbit": {
+          "type": "design",
+          "settings": {
+            "concept": "orbit",
+            "title": "Out of Orbit Denim",
+            "palette": "Ink denim / metallic thread",
+            "description": "Wide-leg denim with asymmetric pockets and orbital embroidery."
+          }
+        },
+        "liquid": {
+          "type": "design",
+          "settings": {
+            "concept": "liquid",
+            "title": "Liquid Metal Hoodie",
+            "palette": "Black / liquid chrome",
+            "description": "A sculptural silver graphic flowing across the shoulders and chest."
+          }
+        },
+        "cherry": {
+          "type": "design",
+          "settings": {
+            "concept": "cherry",
+            "title": "Wild Cherry Zip-Up",
+            "palette": "Rose / espresso",
+            "description": "Animal-print fleece with cherry-shaped zipper hardware."
+          }
+        },
+        "butterfly": {
+          "type": "design",
+          "settings": {
+            "concept": "butterfly",
+            "title": "Butterfly Effect Tee",
+            "palette": "Faded black / violet chrome",
+            "description": "Fragmented wings and distorted metallic graphics."
+          }
+        },
+        "double": {
+          "type": "design",
+          "settings": {
+            "concept": "double",
+            "title": "Double Vision Sweatpants",
+            "palette": "Ash / charcoal",
+            "description": "Layered waistband and contrast seams with detachable leg concept."
+          }
+        },
+        "chaos": {
+          "type": "design",
+          "settings": {
+            "concept": "chaos",
+            "title": "Beautiful Chaos Hoodie",
+            "palette": "Black / burgundy",
+            "description": "Thorn vines and embroidered roses winding around the garment."
+          }
+        }
+      },
+      "block_order": [
+        "fallen",
+        "xray",
+        "orbit",
+        "liquid",
+        "cherry",
+        "butterfly",
+        "double",
+        "chaos"
+      ]
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
     "presela_design_edit",
+    "presela_viral_concepts",
     "presela_vip_feature",
     "presela_faq"
   ]
