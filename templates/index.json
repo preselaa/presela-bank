@@ -13,9 +13,8 @@
       "type": "presela-hero",
       "settings": {
         "eyebrow": "",
-        "image": "shopify://shop_images/presela-editorial-quarter-zip.png",
         "heading": "Wear it your way.",
-        "copy": "<p>Relaxed silhouettes, everyday layers and pieces to make your own.</p>",
+        "copy": "",
         "primary_label": "Shop the collection"
       }
     },
