@@ -28,3 +28,13 @@
 @media (prefers-reduced-motion:no-preference){[data-template="index"] .ps-editorial-actions a{transition:transform .15s var(--ps-home-ease)}[data-template="index"] .ps-editorial-actions a:active,.ps-design-edit__controls button:active{transform:scale(.97)}}
 @media(max-width:749px){[data-template="index"] .ps-wrap.ps-editorial{grid-template-columns:1fr;margin-block:12px 10px}[data-template="index"] .ps-editorial h1{font-size:clamp(43px,11vw,64px)}[data-template="index"] .ps-editorial-image{aspect-ratio:1.15;max-height:none}[data-template="index"] .ps-editorial-copy{padding:26px 22px 32px}.ps-design-edit{padding-inline:16px}.ps-design-edit__track{grid-auto-columns:76%;gap:12px}.ps-design-edit__header{align-items:start}.ps-design-edit__controls{align-self:end}}
 @media(prefers-reduced-motion:reduce){[data-template="index"] .product-card .card-gallery img,.ps-design-edit__controls button{transition:none}}
+
+/* Centered single-action homepage hero. */
+[data-template="index"] .ps-wrap.ps-editorial.ps-editorial-simple{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"image" "copy";overflow:hidden}
+[data-template="index"] .ps-wrap.ps-editorial.ps-editorial-no-image{grid-template-areas:"copy"}
+[data-template="index"] .ps-editorial-simple .ps-editorial-copy{grid-area:copy;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:clamp(34px,5vw,64px) 20px}
+[data-template="index"] .ps-editorial-simple h1{max-width:100%;margin:0;text-align:center;font-size:clamp(38px,6vw,72px);line-height:1.04;letter-spacing:-.05em}
+[data-template="index"] .ps-editorial-simple .ps-editorial-actions{display:flex;justify-content:center;align-items:center;margin:0;width:100%}
+[data-template="index"] .ps-editorial-simple .ps-editorial-actions .ps-editorial-button{display:inline-flex;justify-content:center;align-items:center;min-height:50px;padding:14px 30px;width:auto;text-align:center}
+[data-template="index"] .ps-editorial-simple .ps-editorial-image{grid-area:image;width:100%;height:auto;aspect-ratio:2.25;object-fit:cover;max-height:580px;display:block}
+@media(max-width:749px){[data-template="index"] .ps-editorial-simple .ps-editorial-copy{padding:32px 18px;gap:20px}[data-template="index"] .ps-editorial-simple h1{font-size:clamp(34px,8vw,48px)}[data-template="index"] .ps-editorial-simple .ps-editorial-image{aspect-ratio:1.15;max-height:none}}
